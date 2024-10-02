@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PERSONAL BLOG</title>
+    <style>
+      /* CSS Stilleri */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background-color: #be0684;
+        color: white;
+        padding: 10px 0;
+      }
+
+      nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex; /* Flexbox ile yatay düzen */
+        justify-content: center; /* Ortalanmış yerleşim */
+        position: relative; /* Konumlandırma için */
+      }
+
+      nav ul li {
+        margin: 0 15px; /* Her bir bağlantı arasında boşluk */
+        position: relative; /* Açılır menü için konumlandırma */
+      }
+
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 15px; /* İç boşluk */
+        display: block; /* Tıklanabilir alanı artırmak için */
+      }
+
+      nav ul li a:hover {
+        background-color: #ac034c; /* Hover rengi */
+        border-radius: 5px; /* Kenar yuvarlama */
+      }
+
+      /* Açılır liste stili */
+      .dropdown {
+        display: none; /* Başlangıçta gizli */
+        position: absolute; /* Konumlandırma için */
+        background-color: #ac034c; /* Arka plan rengi */
+        z-index: 1; /* Diğer içeriklerin üstünde görünmesi için */
+        margin-top: 5px; /* Üstten biraz boşluk */
+        border-radius: 5px; /* Kenar yuvarlama */
+      }
+
+      .dropdown.show {
+        display: block; /* Gösterim durumu */
+      }
+
+      .dropdown ul {
+        list-style-type: none; /* Noktaları kaldır */
+        margin: 0;
+        padding: 0;
+        display: flex; /* Flex kullanarak yatay düzen */
+        flex-direction: column; /* Dikey hizalama */
+      }
+
+      .dropdown ul li {
+        display: block; /* Her bağlantıyı alt alta yerleştir */
+      }
+
+      .dropdown ul li a {
+        padding: 10px 15px; /* İç boşluk */
+        display: block; /* Tıklanabilir alanı artırmak için */
+        color: white; /* Yazı rengi */
+        text-decoration: none; /* Altı çizgiyi kaldır */
+      }
+
+      .dropdown ul li a:hover {
+        background-color: #ef6c01; /* Hover rengi */
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#tanitim">Beni Tanıyın</a></li>
+          <li>
+            <a href="#" id="dropdown-toggle">İletişim</a>
+            <div class="dropdown" id="dropdown-menu">
+              <ul>
+                <li>
+                  <a href="https://github.com/Yarenunal" target="_blank"
+                    >Github</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/yaren-%C3%BCnal-372b52264/"
+                    target="_blank"
+                    >LinkedIn</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <h1 id="tanitim">Beni Tanıyın</h1>
+    <ul>
+      <li>
+        <h2>İsim:</h2>
+        Yaren ÜNAL
+      </li>
+      <li>
+        <h2>Beceriler ve Uğraşlar:</h2>
+        <ul>
+          <li>
+            Süleyman Demirel Üniversitesinde 3. sınıf bilgisayar mühendisliği
+            bölümünde öğrenim görmekteyim.
+          </li>
+          <li>
+            Şu an Swift ve Ionic frameworkleri ile web ve mobil uygulamalar
+            geliştirmekteyim (birkaçı GitHub'ımda mevcut).
+          </li>
+          <li>3 senedir keman çalmaktayım.</li>
+        </ul>
+      </li>
+      <li>
+        <h2>Hedefler:</h2>
+        <ul>
+          <li>Aklımdaki uygulamaları yapıp kullanıcıya sunmak.</li>
+          <li>Kemanda profesyonelleşebilmek.</li>
+          <li>Dünya'yı gezmek.</li>
+          <li>
+            ColdPlay konserine gitmek. Aşağıya bırakacağım videodan da bir
+            konser kesiti izleyebilirsiniz.
+          </li>
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/nm5CiwNluKI?si=FHrPZ_sSL_q7VQMi"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+          <li>Resimde gördüğünüz arabayı almak.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <img
+      src="https://images.pexels.com/photos/10776428/pexels-photo-10776428.jpeg"
+      alt="woswos"
+      width="300"
+      height="400"
+    />
+
+    <footer>
+      <p>&copy; 2024. Tüm hakları saklıdır.</p>
+      <ul>
+        <li><em>Yaren ÜNAL</em></li>
+        <li><em>2211012056</em></li>
+      </ul>
+    </footer>
+
+    <script>
+      const dropdownToggle = document.getElementById("dropdown-toggle");
+      const dropdownMenu = document.getElementById("dropdown-menu");
+
+      dropdownToggle.addEventListener("click", function (event) {
+        event.preventDefault(); // Linkin varsayılan davranışını engelle
+        dropdownMenu.classList.toggle("show"); // Açılır menüyü aç/kapat
+      });
+
+      // Sayfada herhangi bir yere tıklanırsa açılır menüyü kapat
+      window.addEventListener("click", function (event) {
+        if (
+          !dropdownToggle.contains(event.target) &&
+          !dropdownMenu.contains(event.target)
+        ) {
+          dropdownMenu.classList.remove("show"); // Menüyü kapat
+        }
+      });
+    </script>
+  </body>
+</html>
