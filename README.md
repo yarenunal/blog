@@ -1,4 +1,4 @@
 # blog
 
- [blog](https://yarenunal.github.io/blog/)
+ [Tıklayın blogu görün](https://yarenunal.github.io/blog/)
 
