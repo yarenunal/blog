@@ -1,4 +1,4 @@
 # blog
 
- [](https://yarenunal.github.io/blog/)
+ [blog](https://yarenunal.github.io/blog/)
 
