@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Yaren Ünal — iOS geliştirici. Swift, SwiftUI ve mobil uygulama projeleri."
+      content="Yaren Ünal — iOS & Full-Stack geliştirici. SwiftUI, Flutter, FastAPI ve mobil projeler. Ankara."
     />
-    <title>Yaren Ünal · iOS Developer</title>
+    <title>Yaren Ünal · iOS & Full-Stack Developer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -366,6 +366,23 @@
       }
 
       /* ——— Skills ——— */
+      .skills-group {
+        margin-bottom: 2rem;
+      }
+
+      .skills-group:last-child {
+        margin-bottom: 0;
+      }
+
+      .skills-group h3 {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin-bottom: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
       .skills-grid {
         display: flex;
         flex-wrap: wrap;
@@ -629,12 +646,12 @@
             />
             <div class="avatar-fallback" aria-hidden="true">YÜ</div>
           </div>
-          <span class="hero-badge">iOS Developer</span>
+          <span class="hero-badge">iOS & Full-Stack Developer</span>
           <h1>Merhaba, ben Yaren Ünal</h1>
           <p class="hero-tagline">
-            Swift ve SwiftUI ile kullanıcı dostu mobil deneyimler tasarlıyorum.
-            Bilgisayar mühendisliği öğrencisi, kod yazmayı ve keman çalmayı
-            seviyorum.
+            Süleyman Demirel Üniversitesi Bilgisayar Mühendisliği 4. sınıf
+            öğrencisiyim. Ankara’da yaşıyorum; SwiftUI, Flutter ve FastAPI ile
+            mobil ve backend projeler geliştiriyorum.
           </p>
           <div class="hero-cta">
             <a class="btn btn-primary" href="#projeler">Projelerimi Gör</a>
@@ -648,7 +665,7 @@
             </a>
             <a
               class="btn btn-secondary"
-              href="https://www.linkedin.com/in/yaren-%C3%BCnal-372b52264/"
+              href="https://www.linkedin.com/in/yaren-unal/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -664,21 +681,45 @@
           <h2 class="section-title">Kısaca ben</h2>
           <div class="about-grid">
             <article class="about-card">
-              <h3>Ne yapıyorum?</h3>
+              <h3>Eğitim</h3>
               <p>
-                Süleyman Demirel Üniversitesi Bilgisayar Mühendisliği
-                bölümünde öğrenim görüyorum. iOS ekosisteminde Swift, SwiftUI
-                ve UIKit ile native uygulamalar geliştiriyorum; ayrıca web ve
-                hibrit projelerde Ionic deneyimim var.
+                <strong>Süleyman Demirel Üniversitesi</strong> — Bilgisayar
+                Mühendisliği (4. sınıf)<br />
+                Mühendislik ve Doğa Bilimleri Fakültesi · 09.2022 – 06.2026
               </p>
             </article>
             <article class="about-card">
-              <h3>İlgi alanlarım</h3>
+              <h3>Staj deneyimim</h3>
               <ul>
-                <li>Mobil UX ve erişilebilir arayüzler</li>
-                <li>Müzik notasyonu ve ses işleme projeleri</li>
-                <li>Açık kaynak ve portfolyo geliştirme</li>
-                <li>3 yıldır keman çalıyorum</li>
+                <li>
+                  <strong>ANKAREF</strong> (Ağu 2025) — Üretken yapay zeka ve
+                  mobil: SQL ChatBot, TakasApp
+                </li>
+                <li>
+                  <strong>TEDAŞ A.Ş.</strong> (Tem 2024) — Spring Boot backend;
+                  iOS: ToDos Tutorial, Film Karakterleri Kitaplığı
+                </li>
+              </ul>
+            </article>
+            <article class="about-card">
+              <h3>Ne yapıyorum?</h3>
+              <p>
+                Native iOS (SwiftUI, Combine, CoreData) ve Flutter ile mobil
+                uygulamalar; FastAPI, Node.js ve Spring Boot ile backend
+                geliştiriyorum. Lisans bitirme projemde ses kaydından nota ve
+                MusicXML üreten NotasyonApp üzerinde çalışıyorum. LLM, NLP ve
+                LangChain ile yapay zeka projelerine de ilgi duyuyorum.
+              </p>
+            </article>
+            <article class="about-card">
+              <h3>Sertifikalar & hobiler</h3>
+              <ul>
+                <li>BTK — SwiftUI ile Mobil Programlama (2024)</li>
+                <li>Turkcell Geleceği Yazanlar — Swift 101 (2024)</li>
+                <li>BTK — Veri Bilimi için Python ve TensorFlow (2025)</li>
+                <li>Udemy — ChatGPT & Prompt Mühendisliği (2025)</li>
+                <li>İngilizce (B1), Almanca (A1)</li>
+                <li>Keman, seyahat, pilates, kitap</li>
               </ul>
             </article>
           </div>
@@ -689,17 +730,48 @@
         <div class="container">
           <p class="section-label">Beceriler</p>
           <h2 class="section-title">Teknoloji yığınım</h2>
-          <div class="skills-grid">
-            <span class="skill-tag">Swift</span>
-            <span class="skill-tag">SwiftUI</span>
-            <span class="skill-tag">UIKit</span>
-            <span class="skill-tag">Xcode</span>
-            <span class="skill-tag">Git & GitHub</span>
-            <span class="skill-tag">REST API</span>
-            <span class="skill-tag">Ionic</span>
-            <span class="skill-tag">TypeScript</span>
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">Figma</span>
+          <div class="skills-group">
+            <h3>Mobil</h3>
+            <div class="skills-grid">
+              <span class="skill-tag">Swift</span>
+              <span class="skill-tag">SwiftUI</span>
+              <span class="skill-tag">Flutter</span>
+              <span class="skill-tag">CoreData</span>
+              <span class="skill-tag">Combine</span>
+              <span class="skill-tag">MVVM</span>
+              <span class="skill-tag">StoreKit 2</span>
+              <span class="skill-tag">MapKit</span>
+            </div>
+          </div>
+          <div class="skills-group">
+            <h3>Backend & API</h3>
+            <div class="skills-grid">
+              <span class="skill-tag">FastAPI</span>
+              <span class="skill-tag">Spring Boot 3</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">Express</span>
+              <span class="skill-tag">Flask</span>
+              <span class="skill-tag">REST API</span>
+              <span class="skill-tag">JWT & OTP</span>
+              <span class="skill-tag">PostgreSQL</span>
+              <span class="skill-tag">MySQL</span>
+              <span class="skill-tag">Redis</span>
+              <span class="skill-tag">RabbitMQ</span>
+            </div>
+          </div>
+          <div class="skills-group">
+            <h3>Cloud, AI & Araçlar</h3>
+            <div class="skills-grid">
+              <span class="skill-tag">Firebase</span>
+              <span class="skill-tag">Docker</span>
+              <span class="skill-tag">CI/CD</span>
+              <span class="skill-tag">LangChain</span>
+              <span class="skill-tag">LLM & NLP</span>
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">Java</span>
+              <span class="skill-tag">Git & GitHub</span>
+              <span class="skill-tag">Postman</span>
+            </div>
           </div>
         </div>
       </section>
@@ -795,17 +867,28 @@
           <h2 class="section-title">Birlikte çalışalım</h2>
           <div class="contact-card">
             <p>
-              Proje fikriniz, staj veya iş birliği için bana ulaşabilirsiniz.
-              Mesajınızı LinkedIn üzerinden iletmeniz en hızlı yol.
+              Ankara, Türkiye · Staj, freelance veya iş birliği için
+              ulaşabilirsiniz.
+            </p>
+            <p style="margin-bottom: 1.5rem; color: var(--text-secondary)">
+              <a href="mailto:yareunal16@gmail.com">yareunal16@gmail.com</a>
+              ·
+              <a href="tel:+905389830116">+90 538 983 01 16</a>
             </p>
             <div class="contact-links">
               <a
                 class="btn btn-primary"
-                href="https://www.linkedin.com/in/yaren-%C3%BCnal-372b52264/"
+                href="https://www.linkedin.com/in/yaren-unal/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 LinkedIn'de yaz
+              </a>
+              <a
+                class="btn btn-secondary"
+                href="mailto:yareunal16@gmail.com"
+              >
+                E-posta gönder
               </a>
               <a
                 class="btn btn-secondary"
