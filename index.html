@@ -18,6 +18,13 @@
       (function () {
         if ("scrollRestoration" in history) history.scrollRestoration = "manual";
         if (!location.hash) window.scrollTo(0, 0);
+        var t = localStorage.getItem("theme");
+        if (
+          t === "dark" ||
+          (!t && window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
       })();
     </script>
     <style>
@@ -45,8 +52,123 @@
         --text-secondary: #a1a1a6;
         --accent: #0a84ff;
         --accent-hover: #409cff;
-        --border: rgba(255, 255, 255, 0.1);
+        --border: rgba(255, 255, 255, 0.16);
         --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+        --accent-glow: color-mix(in srgb, var(--accent) 40%, transparent);
+        color-scheme: dark;
+      }
+
+      @keyframes codeDriftDark {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        8% {
+          opacity: 0.32;
+        }
+        92% {
+          opacity: 0.32;
+        }
+        100% {
+          transform: translateY(-20vh) rotate(180deg);
+          opacity: 0;
+        }
+      }
+
+      @keyframes gridPulseDark {
+        0%,
+        100% {
+          opacity: 0.72;
+        }
+        50% {
+          opacity: 0.95;
+        }
+      }
+
+      @keyframes badgeGlowDark {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 var(--accent-glow);
+        }
+        50% {
+          box-shadow: 0 0 28px 6px var(--accent-glow);
+        }
+      }
+
+      @keyframes textShimmerDark {
+        0% {
+          background-position: 0% center;
+        }
+        100% {
+          background-position: 200% center;
+        }
+      }
+
+      [data-theme="dark"] .bg-grid {
+        opacity: 0.8;
+        animation: gridPulseDark 8s ease-in-out infinite;
+      }
+
+      [data-theme="dark"] .bg-orbs span {
+        opacity: 0.55;
+      }
+
+      [data-theme="dark"] .bg-orbs span:nth-child(3) {
+        opacity: 0.38;
+      }
+
+      [data-theme="dark"] .bg-code span {
+        color: #64d2ff;
+        text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 55%, transparent);
+        animation-name: codeDriftDark;
+      }
+
+      [data-theme="dark"] .scroll-progress {
+        box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 70%, transparent);
+      }
+
+      [data-theme="dark"] .text-gradient {
+        background: linear-gradient(
+          120deg,
+          #f5f5f7 0%,
+          #0a84ff 30%,
+          #bf5af2 50%,
+          #64d2ff 70%,
+          #f5f5f7 100%
+        );
+        background-size: 200% auto;
+        animation: textShimmerDark 6s linear infinite;
+      }
+
+      [data-theme="dark"] .hero-badge {
+        animation: badgeGlowDark 3s ease-in-out infinite;
+      }
+
+      [data-theme="dark"] .avatar-wrap.has-photo::before {
+        opacity: 0.8;
+        filter: blur(0);
+      }
+
+      [data-theme="dark"] .btn-primary::before {
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.45),
+          transparent
+        );
+      }
+
+      [data-theme="dark"] .showcase-item.is-visible:hover,
+      [data-theme="dark"] .about-card:hover,
+      [data-theme="dark"] .project-card.reveal.is-visible:hover {
+        box-shadow:
+          var(--shadow),
+          0 16px 48px var(--accent-glow),
+          0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent);
+      }
+
+      [data-theme="dark"] .section-title.reveal.is-visible::after {
+        box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 60%, transparent);
       }
 
       *,
@@ -1798,6 +1920,26 @@
         themeToggle.textContent = "☀";
       }
 
+      function restartDecorAnimations() {
+        document.querySelectorAll(".hero-enter").forEach(function (el) {
+          el.style.animation = "none";
+          void el.offsetWidth;
+          el.style.animation = "";
+        });
+        var wrap = document.getElementById("avatar-wrap");
+        if (wrap && wrap.classList.contains("has-photo")) {
+          wrap.style.animation = "none";
+          void wrap.offsetWidth;
+          wrap.style.animation = "";
+        }
+        document.querySelectorAll(".reveal").forEach(function (el) {
+          var rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight * 0.92) {
+            el.classList.add("is-visible");
+          }
+        });
+      }
+
       themeToggle.addEventListener("click", () => {
         const isDark =
           document.documentElement.getAttribute("data-theme") === "dark";
@@ -1810,6 +1952,7 @@
           localStorage.setItem("theme", "dark");
           themeToggle.textContent = "☀";
         }
+        requestAnimationFrame(restartDecorAnimations);
       });
 
       // Mobil menü
@@ -1938,6 +2081,9 @@
       initNavActive();
       initHeroTerminal();
       initReveal();
+      if (document.documentElement.getAttribute("data-theme") === "dark") {
+        requestAnimationFrame(restartDecorAnimations);
+      }
 
       // Reveal takılırsa içerik görünür ve scroll çalışır kalsın
       setTimeout(function () {
