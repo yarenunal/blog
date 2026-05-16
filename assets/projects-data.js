@@ -32,7 +32,7 @@ const PROJECT_SHOWCASE = [
   {
     title: "ArenaX",
     description:
-      "Freelance iOS full-stack uygulama — yakında App Store’da. Harita ve konum tabanlı özellikler, Firebase, StoreKit 2 ve Google AdMob. MVVM ve Repository Pattern.",
+      "Harita üzerinden yakınınızdaki spor alanlarını ve etkinlikleri keşfetmenizi, kayıt olmanızı ve uygulama içi işlemleri yönetmenizi sağlayan mobil platform. Yakında App Store’da.",
     tags: ["SwiftUI", "Firebase", "StoreKit 2", "MapKit", "MVVM"],
     video: { type: "youtube", videoId: "" },
     links: [{ label: "GitHub", url: "https://github.com/Yarenunal" }],
@@ -40,7 +40,7 @@ const PROJECT_SHOWCASE = [
   {
     title: "NotasyonApp",
     description:
-      "Lisans bitirme projesi: MP3 yükleyip nota, MusicXML ve PDF üretir. Flutter arayüz; FastAPI, Redis/RQ, librosa, music21 ve MuseScore pipeline.",
+      "Elinizdeki bir ses kaydını (MP3) otomatik olarak notaya, MusicXML ve PDF’e çevirir — müzisyenler ve öğrenciler kaydı yazıya dökebilir, partisyonu paylaşabilir.",
     tags: ["Flutter", "FastAPI", "Redis", "librosa", "music21"],
     video: { type: "youtube", videoId: "" },
     links: [{ label: "GitHub", url: "https://github.com/Yarenunal" }],
@@ -48,7 +48,7 @@ const PROJECT_SHOWCASE = [
   {
     title: "TakasApp",
     description:
-      "Full-stack takas uygulaması. Flutter (MVVM); Flask, PostgreSQL, JWT/OTP, Docker ve Redis.",
+      "Kullanıcıların para kullanmadan eşya takası yapabildiği platform. İlan verir, teklif alır ve güvenli kimlik doğrulama ile takas sürecini yönetirsiniz.",
     tags: ["Flutter", "Flask", "PostgreSQL", "JWT", "Docker"],
     video: { type: "youtube", videoId: "Kkcq81ZbU7M" },
     links: [{ label: "GitHub", url: "https://github.com/Yarenunal" }],
@@ -56,7 +56,7 @@ const PROJECT_SHOWCASE = [
   {
     title: "e-Ticaret iOS Klonu",
     description:
-      "SwiftUI e-ticaret uygulaması. Node.js (Express), PostgreSQL, Redis, RabbitMQ, Docker ve CI/CD.",
+      "Ürünleri listeleyip sepete ekleyebileceğiniz, sipariş verebileceğiniz bir online mağaza deneyimi — gerçek bir e-ticaret sitesinin mobil karşılığı.",
     tags: ["SwiftUI", "Node.js", "PostgreSQL", "RabbitMQ", "Docker"],
     video: { type: "youtube", videoId: "G2G0Yw62L7w" },
     links: [{ label: "GitHub", url: "https://github.com/Yarenunal" }],
@@ -64,7 +64,7 @@ const PROJECT_SHOWCASE = [
   {
     title: "SQL ChatBot",
     description:
-      "PostgreSQL veritabanıyla Türkçe doğal dilde konuşan chatbot. LangChain ve Ollama ile metin → SQL dönüşümü; sorgu, açıklama ve güven skoru sunar. ANKAREF staj projesi.",
+      "SQL bilmeden veritabanınıza Türkçe soru sorarsınız; sistem sorguyu üretir, sonucu gösterir ve ne yaptığını açıklar. Raporlama ve veri analizi için pratik bir asistan.",
     tags: ["Python", "LangChain", "FastAPI", "PostgreSQL", "LLM"],
     media: {
       type: "gallery",
@@ -88,7 +88,7 @@ const PROJECT_SHOWCASE = [
   {
     title: "Ehliyet Quiz App",
     description:
-      "Ehliyet çıkmış sorular için iOS quiz. SwiftUI arayüz ve CoreData ile çevrimdışı soru bankası.",
+      "Ehliyet sınavına hazırlık için çıkmış sorularla test çözersiniz. İnternet olmadan çalışır; doğru-yanlış takibiyle kendinizi sınava hazırlarsınız.",
     tags: ["SwiftUI", "CoreData", "iOS"],
     video: { type: "file", src: "projects/ehliyet-quiz/demo.mp4" },
     links: [{ label: "GitHub", url: "https://github.com/Yarenunal" }],
