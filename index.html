@@ -3,191 +3,937 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PERSONAL BLOG</title>
+    <meta
+      name="description"
+      content="Yaren Ünal — iOS geliştirici. Swift, SwiftUI ve mobil uygulama projeleri."
+    />
+    <title>Yaren Ünal · iOS Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      /* CSS Stilleri */
+      :root {
+        --bg: #f5f5f7;
+        --surface: #ffffff;
+        --text: #1d1d1f;
+        --text-secondary: #6e6e73;
+        --accent: #0071e3;
+        --accent-hover: #0077ed;
+        --border: rgba(0, 0, 0, 0.08);
+        --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        --radius: 16px;
+        --nav-height: 64px;
+        --max-width: 1080px;
+        --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      [data-theme="dark"] {
+        --bg: #000000;
+        --surface: #1c1c1e;
+        --text: #f5f5f7;
+        --text-secondary: #a1a1a6;
+        --accent: #0a84ff;
+        --accent-hover: #409cff;
+        --border: rgba(255, 255, 255, 0.1);
+        --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: calc(var(--nav-height) + 16px);
+      }
+
       body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
+        font-family: var(--font);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
       }
 
-      header {
-        background-color: #be0684;
-        color: white;
-        padding: 10px 0;
-      }
-
-      nav ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        display: flex; /* Flexbox ile yatay düzen */
-        justify-content: center; /* Ortalanmış yerleşim */
-        position: relative; /* Konumlandırma için */
-      }
-
-      nav ul li {
-        margin: 0 15px; /* Her bir bağlantı arasında boşluk */
-        position: relative; /* Açılır menü için konumlandırma */
-      }
-
-      nav ul li a {
-        color: white;
+      a {
+        color: var(--accent);
         text-decoration: none;
-        padding: 10px 15px; /* İç boşluk */
-        display: block; /* Tıklanabilir alanı artırmak için */
+        transition: color 0.2s;
       }
 
-      nav ul li a:hover {
-        background-color: #ac034c; /* Hover rengi */
-        border-radius: 5px; /* Kenar yuvarlama */
+      a:hover {
+        color: var(--accent-hover);
       }
 
-      /* Açılır liste stili */
-      .dropdown {
-        display: none; /* Başlangıçta gizli */
-        position: absolute; /* Konumlandırma için */
-        background-color: #ac034c; /* Arka plan rengi */
-        z-index: 1; /* Diğer içeriklerin üstünde görünmesi için */
-        margin-top: 5px; /* Üstten biraz boşluk */
-        border-radius: 5px; /* Kenar yuvarlama */
+      img {
+        max-width: 100%;
+        display: block;
       }
 
-      .dropdown.show {
-        display: block; /* Gösterim durumu */
+      .container {
+        width: min(100% - 2rem, var(--max-width));
+        margin-inline: auto;
       }
 
-      .dropdown ul {
-        list-style-type: none; /* Noktaları kaldır */
-        margin: 0;
-        padding: 0;
-        display: flex; /* Flex kullanarak yatay düzen */
-        flex-direction: column; /* Dikey hizalama */
+      /* ——— Nav ——— */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        height: var(--nav-height);
+        background: color-mix(in srgb, var(--bg) 80%, transparent);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
       }
 
-      .dropdown ul li {
-        display: block; /* Her bağlantıyı alt alta yerleştir */
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
       }
 
-      .dropdown ul li a {
-        padding: 10px 15px; /* İç boşluk */
-        display: block; /* Tıklanabilir alanı artırmak için */
-        color: white; /* Yazı rengi */
-        text-decoration: none; /* Altı çizgiyi kaldır */
+      .nav-logo {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: var(--text);
+        letter-spacing: -0.02em;
       }
 
-      .dropdown ul li a:hover {
-        background-color: #ef6c01; /* Hover rengi */
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        font-weight: 500;
+        padding: 0.5rem 0.85rem;
+        border-radius: 8px;
+        transition: background 0.2s, color 0.2s;
+      }
+
+      .nav-links a:hover {
+        color: var(--text);
+        background: var(--border);
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .theme-toggle {
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        background: var(--surface);
+        color: var(--text);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        box-shadow: var(--shadow);
+        transition: transform 0.2s;
+      }
+
+      .theme-toggle:hover {
+        transform: scale(1.05);
+      }
+
+      .nav-toggle {
+        display: none;
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 8px;
+        background: var(--surface);
+        color: var(--text);
+        cursor: pointer;
+        font-size: 1.25rem;
+      }
+
+      /* ——— Hero ——— */
+      .hero {
+        padding: calc(var(--nav-height) + 4rem) 0 5rem;
+        text-align: center;
+      }
+
+      .avatar-wrap {
+        position: relative;
+        width: 140px;
+        height: 140px;
+        margin: 0 auto 1.5rem;
+      }
+
+      .avatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid var(--surface);
+        box-shadow: var(--shadow);
+      }
+
+      .avatar-fallback {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #0071e3, #5856d6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #fff;
+        border: 4px solid var(--surface);
+        box-shadow: var(--shadow);
+      }
+
+      .avatar-wrap.has-photo .avatar-fallback {
+        display: none;
+      }
+
+      .hero-badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--accent);
+        background: color-mix(in srgb, var(--accent) 12%, transparent);
+        padding: 0.35rem 0.85rem;
+        border-radius: 100px;
+        margin-bottom: 1rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 5vw, 2.75rem);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.15;
+        margin-bottom: 0.75rem;
+      }
+
+      .hero-tagline {
+        font-size: 1.15rem;
+        color: var(--text-secondary);
+        max-width: 32rem;
+        margin: 0 auto 2rem;
+      }
+
+      .hero-cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.35rem;
+        border-radius: 980px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .btn-primary:hover {
+        background: var(--accent-hover);
+        color: #fff;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 35%, transparent);
+      }
+
+      .btn-secondary {
+        background: var(--surface);
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+
+      .btn-secondary:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow);
+        color: var(--text);
+      }
+
+      /* ——— Sections ——— */
+      section {
+        padding: 4rem 0;
+      }
+
+      .section-label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+      }
+
+      .section-title {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 2rem;
+      }
+
+      /* ——— About ——— */
+      .about-grid {
+        display: grid;
+        gap: 2rem;
+      }
+
+      @media (min-width: 768px) {
+        .about-grid {
+          grid-template-columns: 1fr 1fr;
+          align-items: start;
+        }
+      }
+
+      .about-card {
+        background: var(--surface);
+        border-radius: var(--radius);
+        padding: 1.75rem;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+
+      .about-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+      }
+
+      .about-card p,
+      .about-card li {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+      }
+
+      .about-card ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+      }
+
+      .about-card li::before {
+        content: "→";
+        color: var(--accent);
+        margin-right: 0.5rem;
+      }
+
+      /* ——— Skills ——— */
+      .skills-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+      }
+
+      .skill-tag {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 0.5rem 1rem;
+        border-radius: 100px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text);
+        transition: border-color 0.2s, transform 0.2s;
+      }
+
+      .skill-tag:hover {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      /* ——— Projects ——— */
+      .projects-grid {
+        display: grid;
+        gap: 1.25rem;
+      }
+
+      @media (min-width: 640px) {
+        .projects-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 960px) {
+        .projects-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .project-card {
+        background: var(--surface);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        transition: transform 0.25s, box-shadow 0.25s;
+      }
+
+      .project-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .project-card h3 {
+        font-size: 1.05rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+
+      .project-card p {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        flex: 1;
+        line-height: 1.5;
+      }
+
+      .project-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+      }
+
+      .project-lang {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+
+      .lang-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      .project-link {
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .projects-loading,
+      .projects-empty {
+        text-align: center;
+        color: var(--text-secondary);
+        padding: 3rem 1rem;
+        grid-column: 1 / -1;
+      }
+
+      .projects-loading .spinner {
+        width: 32px;
+        height: 32px;
+        border: 3px solid var(--border);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin: 0 auto 1rem;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ——— Featured (manual highlights) ——— */
+      .featured-note {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+      }
+
+      /* ——— Contact ——— */
+      .contact-card {
+        background: var(--surface);
+        border-radius: var(--radius);
+        padding: 2.5rem;
+        text-align: center;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+
+      .contact-card p {
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        max-width: 28rem;
+        margin-inline: auto;
+      }
+
+      .contact-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+      }
+
+      /* ——— Footer ——— */
+      footer {
+        padding: 2rem 0 3rem;
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        border-top: 1px solid var(--border);
+      }
+
+      /* ——— Mobile nav ——— */
+      @media (max-width: 768px) {
+        .nav-toggle {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: var(--nav-height);
+          left: 0;
+          right: 0;
+          background: var(--bg);
+          border-bottom: 1px solid var(--border);
+          flex-direction: column;
+          padding: 1rem;
+          gap: 0.25rem;
+          transform: translateY(-120%);
+          opacity: 0;
+          pointer-events: none;
+          transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .nav-links.open {
+          transform: translateY(0);
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        .nav-links a {
+          display: block;
+          width: 100%;
+          text-align: center;
+          padding: 0.85rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
       }
     </style>
   </head>
   <body>
-    <header>
-      <nav>
-        <ul>
-          <li><a href="#tanitim">Beni Tanıyın</a></li>
-          <li>
-            <a href="#" id="dropdown-toggle">İletişim</a>
-            <div class="dropdown" id="dropdown-menu">
+    <nav class="nav" aria-label="Ana menü">
+      <div class="container nav-inner">
+        <a href="#" class="nav-logo">Yaren Ünal</a>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#hakkimda">Hakkımda</a></li>
+          <li><a href="#beceriler">Beceriler</a></li>
+          <li><a href="#projeler">Projeler</a></li>
+          <li><a href="#iletisim">İletişim</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button
+            class="theme-toggle"
+            id="theme-toggle"
+            aria-label="Tema değiştir"
+            type="button"
+          >
+            ◐
+          </button>
+          <button
+            class="nav-toggle"
+            id="nav-toggle"
+            aria-label="Menüyü aç"
+            type="button"
+          >
+            ☰
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <header class="hero">
+        <div class="container">
+          <div class="avatar-wrap" id="avatar-wrap">
+            <img
+              class="avatar"
+              id="avatar-img"
+              src="assets/avatar.jpg"
+              alt="Yaren Ünal"
+              width="140"
+              height="140"
+              loading="eager"
+            />
+            <div class="avatar-fallback" aria-hidden="true">YÜ</div>
+          </div>
+          <span class="hero-badge">iOS Developer</span>
+          <h1>Merhaba, ben Yaren Ünal</h1>
+          <p class="hero-tagline">
+            Swift ve SwiftUI ile kullanıcı dostu mobil deneyimler tasarlıyorum.
+            Bilgisayar mühendisliği öğrencisi, kod yazmayı ve keman çalmayı
+            seviyorum.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#projeler">Projelerimi Gör</a>
+            <a
+              class="btn btn-secondary"
+              href="https://github.com/Yarenunal"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+            <a
+              class="btn btn-secondary"
+              href="https://www.linkedin.com/in/yaren-%C3%BCnal-372b52264/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <section id="hakkimda">
+        <div class="container">
+          <p class="section-label">Hakkımda</p>
+          <h2 class="section-title">Kısaca ben</h2>
+          <div class="about-grid">
+            <article class="about-card">
+              <h3>Ne yapıyorum?</h3>
+              <p>
+                Süleyman Demirel Üniversitesi Bilgisayar Mühendisliği
+                bölümünde öğrenim görüyorum. iOS ekosisteminde Swift, SwiftUI
+                ve UIKit ile native uygulamalar geliştiriyorum; ayrıca web ve
+                hibrit projelerde Ionic deneyimim var.
+              </p>
+            </article>
+            <article class="about-card">
+              <h3>İlgi alanlarım</h3>
               <ul>
-                <li>
-                  <a href="https://github.com/Yarenunal" target="_blank"
-                    >Github</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://www.linkedin.com/in/yaren-%C3%BCnal-372b52264/"
-                    target="_blank"
-                    >LinkedIn</a
-                  >
-                </li>
+                <li>Mobil UX ve erişilebilir arayüzler</li>
+                <li>Müzik notasyonu ve ses işleme projeleri</li>
+                <li>Açık kaynak ve portfolyo geliştirme</li>
+                <li>3 yıldır keman çalıyorum</li>
               </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="beceriler">
+        <div class="container">
+          <p class="section-label">Beceriler</p>
+          <h2 class="section-title">Teknoloji yığınım</h2>
+          <div class="skills-grid">
+            <span class="skill-tag">Swift</span>
+            <span class="skill-tag">SwiftUI</span>
+            <span class="skill-tag">UIKit</span>
+            <span class="skill-tag">Xcode</span>
+            <span class="skill-tag">Git & GitHub</span>
+            <span class="skill-tag">REST API</span>
+            <span class="skill-tag">Ionic</span>
+            <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Figma</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="projeler">
+        <div class="container">
+          <p class="section-label">Portfolyo</p>
+          <h2 class="section-title">Projelerim</h2>
+          <p class="featured-note">
+            Öne çıkan projeler aşağıda; tam liste GitHub profilimden
+            otomatik yüklenir.
+          </p>
+
+          <!-- Öne çıkan projeler — istediğiniz zaman düzenleyebilirsiniz -->
+          <div class="projects-grid" id="featured-projects">
+            <article class="project-card">
+              <h3>Notasyon App</h3>
+              <p>
+                Ses kaydından müzik notasyonu üreten, PDF ve MusicXML çıktısı
+                veren tam yığın bir uygulama. FastAPI backend ve iş kuyruğu
+                mimarisi.
+              </p>
+              <div class="project-meta">
+                <span class="project-lang"
+                  ><span class="lang-dot"></span>Python · Swift</span
+                >
+                <a
+                  class="project-link"
+                  href="https://github.com/Yarenunal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >GitHub →</a
+                >
+              </div>
+            </article>
+            <article class="project-card">
+              <h3>iOS Uygulamaları</h3>
+              <p>
+                Swift ve SwiftUI ile geliştirdiğim mobil projeler — kullanıcı
+                arayüzü odaklı, App Store hedefli deneyimler.
+              </p>
+              <div class="project-meta">
+                <span class="project-lang"
+                  ><span class="lang-dot" style="background: #f05138"></span
+                  >Swift</span
+                >
+                <a
+                  class="project-link"
+                  href="https://github.com/Yarenunal?tab=repositories"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Tüm repolar →</a
+                >
+              </div>
+            </article>
+            <article class="project-card">
+              <h3>Bu Blog</h3>
+              <p>
+                Kişisel iOS geliştirici portfolyom — GitHub Pages üzerinde
+                barındırılan, hafif ve modern tek sayfa sitesi.
+              </p>
+              <div class="project-meta">
+                <span class="project-lang"
+                  ><span class="lang-dot" style="background: #e34c26"></span
+                  >HTML · CSS</span
+                >
+                <a
+                  class="project-link"
+                  href="https://github.com/Yarenunal/blog"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Kaynak kod →</a
+                >
+              </div>
+            </article>
+          </div>
+
+          <h2 class="section-title" style="margin-top: 3rem; font-size: 1.35rem">
+            GitHub'dan
+          </h2>
+          <div class="projects-grid" id="github-projects">
+            <div class="projects-loading" id="projects-loading">
+              <div class="spinner"></div>
+              <p>Projeler yükleniyor…</p>
             </div>
-          </li>
-        </ul>
-      </nav>
-    </header>
+          </div>
+        </div>
+      </section>
 
-    <h1 id="tanitim">Beni Tanıyın</h1>
-    <ul>
-      <li>
-        <h2>İsim:</h2>
-        Yaren ÜNAL
-      </li>
-      <li>
-        <h2>Beceriler ve Uğraşlar:</h2>
-        <ul>
-          <li>
-            Süleyman Demirel Üniversitesinde 3. sınıf bilgisayar mühendisliği
-            bölümünde öğrenim görmekteyim.
-          </li>
-          <li>
-            Şu an Swift ve Ionic frameworkleri ile web ve mobil uygulamalar
-            geliştirmekteyim (birkaçı GitHub'ımda mevcut).
-          </li>
-          <li>3 senedir keman çalmaktayım.</li>
-        </ul>
-      </li>
-      <li>
-        <h2>Hedefler:</h2>
-        <ul>
-          <li>Aklımdaki uygulamaları yapıp kullanıcıya sunmak.</li>
-          <li>Kemanda profesyonelleşebilmek.</li>
-          <li>Dünya'yı gezmek.</li>
-          <li>
-            ColdPlay konserine gitmek. Aşağıya bırakacağım videodan da bir
-            konser kesiti izleyebilirsiniz.
-          </li>
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/nm5CiwNluKI?si=FHrPZ_sSL_q7VQMi"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          ></iframe>
-          <li>Resimde gördüğünüz arabayı almak.</li>
-        </ul>
-      </li>
-    </ul>
-
-    <img
-      src="https://images.pexels.com/photos/10776428/pexels-photo-10776428.jpeg"
-      alt="woswos"
-      width="300"
-      height="400"
-    />
+      <section id="iletisim">
+        <div class="container">
+          <p class="section-label">İletişim</p>
+          <h2 class="section-title">Birlikte çalışalım</h2>
+          <div class="contact-card">
+            <p>
+              Proje fikriniz, staj veya iş birliği için bana ulaşabilirsiniz.
+              Mesajınızı LinkedIn üzerinden iletmeniz en hızlı yol.
+            </p>
+            <div class="contact-links">
+              <a
+                class="btn btn-primary"
+                href="https://www.linkedin.com/in/yaren-%C3%BCnal-372b52264/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                LinkedIn'de yaz
+              </a>
+              <a
+                class="btn btn-secondary"
+                href="https://github.com/Yarenunal"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub profilim
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
     <footer>
-      <p>&copy; 2024. Tüm hakları saklıdır.</p>
-      <ul>
-        <li><em>Yaren ÜNAL</em></li>
-        <li><em>2211012056</em></li>
-      </ul>
+      <div class="container">
+        <p>© <span id="year"></span> Yaren Ünal. Tüm hakları saklıdır.</p>
+      </div>
     </footer>
 
     <script>
-      const dropdownToggle = document.getElementById("dropdown-toggle");
-      const dropdownMenu = document.getElementById("dropdown-menu");
+      const GITHUB_USER = "Yarenunal";
+      const SKIP_REPOS = new Set(["blog"]);
 
-      dropdownToggle.addEventListener("click", function (event) {
-        event.preventDefault(); // Linkin varsayılan davranışını engelle
-        dropdownMenu.classList.toggle("show"); // Açılır menüyü aç/kapat
+      const langColors = {
+        Swift: "#f05138",
+        Python: "#3572A5",
+        TypeScript: "#3178c6",
+        JavaScript: "#f1e05a",
+        HTML: "#e34c26",
+        CSS: "#563d7c",
+        Kotlin: "#A97BFF",
+        Java: "#b07219",
+      };
+
+      // Avatar: fotoğraf yoksa baş harfler gösterilir
+      const avatarImg = document.getElementById("avatar-img");
+      const avatarWrap = document.getElementById("avatar-wrap");
+      avatarImg.addEventListener("load", () => {
+        avatarWrap.classList.add("has-photo");
       });
+      avatarImg.addEventListener("error", () => {
+        avatarImg.style.display = "none";
+      });
+      if (avatarImg.complete && avatarImg.naturalWidth > 0) {
+        avatarWrap.classList.add("has-photo");
+      }
 
-      // Sayfada herhangi bir yere tıklanırsa açılır menüyü kapat
-      window.addEventListener("click", function (event) {
-        if (
-          !dropdownToggle.contains(event.target) &&
-          !dropdownMenu.contains(event.target)
-        ) {
-          dropdownMenu.classList.remove("show"); // Menüyü kapat
+      // Tema
+      const themeToggle = document.getElementById("theme-toggle");
+      const savedTheme = localStorage.getItem("theme");
+      if (
+        savedTheme === "dark" ||
+        (!savedTheme &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.setAttribute("data-theme", "dark");
+        themeToggle.textContent = "☀";
+      }
+
+      themeToggle.addEventListener("click", () => {
+        const isDark =
+          document.documentElement.getAttribute("data-theme") === "dark";
+        if (isDark) {
+          document.documentElement.removeAttribute("data-theme");
+          localStorage.setItem("theme", "light");
+          themeToggle.textContent = "◐";
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+          localStorage.setItem("theme", "dark");
+          themeToggle.textContent = "☀";
         }
       });
+
+      // Mobil menü
+      const navToggle = document.getElementById("nav-toggle");
+      const navLinks = document.getElementById("nav-links");
+      navToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("open");
+        navToggle.setAttribute(
+          "aria-label",
+          navLinks.classList.contains("open") ? "Menüyü kapat" : "Menüyü aç"
+        );
+      });
+      navLinks.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => navLinks.classList.remove("open"));
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // GitHub projeleri
+      async function loadGitHubProjects() {
+        const container = document.getElementById("github-projects");
+        const loading = document.getElementById("projects-loading");
+
+        try {
+          const res = await fetch(
+            `https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=12`
+          );
+          if (!res.ok) throw new Error("API hatası");
+          const repos = await res.json();
+
+          const filtered = repos
+            .filter((r) => !r.fork && !SKIP_REPOS.has(r.name))
+            .slice(0, 6);
+
+          loading.remove();
+
+          if (filtered.length === 0) {
+            container.innerHTML =
+              '<p class="projects-empty">Henüz public repo bulunamadı.</p>';
+            return;
+          }
+
+          filtered.forEach((repo) => {
+            const lang = repo.language || "—";
+            const dotColor = langColors[lang] || "var(--accent)";
+            const card = document.createElement("article");
+            card.className = "project-card";
+            card.innerHTML = `
+              <h3>${escapeHtml(repo.name)}</h3>
+              <p>${escapeHtml(repo.description || "Açıklama eklenmemiş.")}</p>
+              <div class="project-meta">
+                <span class="project-lang">
+                  <span class="lang-dot" style="background:${dotColor}"></span>
+                  ${escapeHtml(lang)}
+                  ${repo.stargazers_count ? ` · ★ ${repo.stargazers_count}` : ""}
+                </span>
+                <a class="project-link" href="${repo.html_url}" target="_blank" rel="noopener noreferrer">Repo →</a>
+              </div>
+            `;
+            container.appendChild(card);
+          });
+        } catch {
+          loading.remove();
+          container.innerHTML =
+            '<p class="projects-empty">GitHub projeleri yüklenemedi. <a href="https://github.com/Yarenunal" target="_blank" rel="noopener">Profilime göz atın →</a></p>';
+        }
+      }
+
+      function escapeHtml(str) {
+        const div = document.createElement("div");
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      loadGitHubProjects();
     </script>
   </body>
 </html>
