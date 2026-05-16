@@ -14,6 +14,12 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script>
+      (function () {
+        if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+        if (!location.hash) window.scrollTo(0, 0);
+      })();
+    </script>
     <style>
       :root {
         --bg: #f5f5f7;
@@ -60,6 +66,7 @@
         color: var(--text);
         line-height: 1.6;
         -webkit-font-smoothing: antialiased;
+        overflow-anchor: none;
       }
 
       a {
@@ -173,6 +180,7 @@
       .hero {
         padding: calc(var(--nav-height) + 4rem) 0 5rem;
         text-align: center;
+        overflow-anchor: none;
       }
 
       .avatar-wrap {
@@ -453,6 +461,10 @@
       .project-link {
         font-size: 0.85rem;
         font-weight: 600;
+      }
+
+      #github-projects {
+        min-height: 320px;
       }
 
       .projects-loading,
@@ -884,6 +896,35 @@
       });
 
       document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Mobilde kayıtlı scroll / #projeler hash ile aşağı inmeyi engelle
+      function ensurePageTop() {
+        if (!location.hash) window.scrollTo(0, 0);
+      }
+
+      window.addEventListener("pageshow", ensurePageTop);
+      window.addEventListener("load", () => {
+        if (!location.hash) requestAnimationFrame(() => window.scrollTo(0, 0));
+      });
+
+      document.querySelectorAll('a[href^="#"]').forEach((link) => {
+        const hash = link.getAttribute("href");
+        if (!hash || hash === "#") {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            history.replaceState(null, "", location.pathname + location.search);
+          });
+          return;
+        }
+        const target = document.getElementById(hash.slice(1));
+        if (!target) return;
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: "smooth" });
+          history.replaceState(null, "", location.pathname + location.search);
+        });
+      });
 
       // GitHub projeleri
       async function loadGitHubProjects() {
