@@ -1236,7 +1236,7 @@
             <img
               class="avatar"
               id="avatar-img"
-              src="assets/avatar.jpg"
+              src="assets/avatar.png"
               alt="Yaren Ünal"
               width="140"
               height="140"
@@ -1452,17 +1452,35 @@
         Java: "#b07219",
       };
 
-      // Avatar: fotoğraf yoksa baş harfler gösterilir
+      // Avatar: Memoji veya fotoğraf (png / jpg)
       const avatarImg = document.getElementById("avatar-img");
       const avatarWrap = document.getElementById("avatar-wrap");
+      const avatarSources = [
+        "assets/avatar.png",
+        "assets/avatar.jpg",
+        "assets/avatar.jpeg",
+      ];
+      let avatarTry = 0;
+
+      function showAvatar() {
+        avatarWrap.classList.add("has-photo");
+      }
+
       avatarImg.addEventListener("load", () => {
-        avatarWrap.classList.add("has-photo");
+        if (avatarImg.naturalWidth > 0) showAvatar();
       });
+
       avatarImg.addEventListener("error", () => {
-        avatarImg.removeAttribute("src");
+        avatarTry += 1;
+        if (avatarTry < avatarSources.length) {
+          avatarImg.src = avatarSources[avatarTry];
+        } else {
+          avatarImg.style.display = "none";
+        }
       });
+
       if (avatarImg.complete && avatarImg.naturalWidth > 0) {
-        avatarWrap.classList.add("has-photo");
+        showAvatar();
       }
 
       // Tema
