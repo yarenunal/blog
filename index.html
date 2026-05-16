@@ -188,17 +188,171 @@
         }
       }
 
+      @keyframes avatarFloat {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes textShimmer {
+        0% {
+          background-position: 0% center;
+        }
+        100% {
+          background-position: 200% center;
+        }
+      }
+
+      @keyframes badgeGlow {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 var(--accent-glow);
+        }
+        50% {
+          box-shadow: 0 0 20px 4px var(--accent-glow);
+        }
+      }
+
+      @keyframes btnShine {
+        0% {
+          left: -100%;
+        }
+        55%,
+        100% {
+          left: 140%;
+        }
+      }
+
+      @keyframes codeDrift {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        8% {
+          opacity: 0.12;
+        }
+        92% {
+          opacity: 0.12;
+        }
+        100% {
+          transform: translateY(-20vh) rotate(180deg);
+          opacity: 0;
+        }
+      }
+
+      .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        width: 0;
+        z-index: 200;
+        pointer-events: none;
+        background: linear-gradient(90deg, var(--accent), #5856d6, #30d158);
+        border-radius: 0 2px 2px 0;
+        transition: width 0.12s linear;
+      }
+
+      .bg-code {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .bg-code span {
+        position: absolute;
+        font-family: var(--mono);
+        font-weight: 600;
+        color: var(--accent);
+        opacity: 0;
+        animation: codeDrift linear infinite;
+      }
+
+      .bg-code span:nth-child(1) {
+        left: 8%;
+        font-size: 1.1rem;
+        animation-duration: 22s;
+        animation-delay: 0s;
+      }
+      .bg-code span:nth-child(2) {
+        left: 22%;
+        font-size: 0.85rem;
+        animation-duration: 18s;
+        animation-delay: -4s;
+      }
+      .bg-code span:nth-child(3) {
+        left: 48%;
+        font-size: 1rem;
+        animation-duration: 25s;
+        animation-delay: -9s;
+      }
+      .bg-code span:nth-child(4) {
+        left: 68%;
+        font-size: 0.9rem;
+        animation-duration: 20s;
+        animation-delay: -2s;
+      }
+      .bg-code span:nth-child(5) {
+        left: 82%;
+        font-size: 1.05rem;
+        animation-duration: 24s;
+        animation-delay: -14s;
+      }
+      .bg-code span:nth-child(6) {
+        left: 92%;
+        font-size: 0.8rem;
+        animation-duration: 19s;
+        animation-delay: -7s;
+      }
+
       .reveal {
         opacity: 0;
-        transform: translateY(32px);
+        transform: translateY(28px) scale(0.98);
         transition:
-          opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-          transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+          opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
       }
 
       .reveal.is-visible {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
+      }
+
+      .reveal.reveal-from-left.is-visible {
+        transform: translateY(0) translateX(0) scale(1);
+      }
+
+      .reveal.reveal-from-right.is-visible {
+        transform: translateY(0) translateX(0) scale(1);
+      }
+
+      .reveal.reveal-from-left {
+        transform: translateX(-36px) translateY(20px) scale(0.98);
+      }
+
+      .reveal.reveal-from-right {
+        transform: translateX(36px) translateY(20px) scale(0.98);
+      }
+
+      .text-gradient {
+        background: linear-gradient(
+          120deg,
+          var(--text) 0%,
+          var(--accent) 40%,
+          #5856d6 60%,
+          var(--text) 100%
+        );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: textShimmer 7s linear infinite;
       }
 
       .hero-enter {
@@ -306,12 +460,41 @@
         font-weight: 500;
         padding: 0.5rem 0.85rem;
         border-radius: 8px;
-        transition: background 0.2s, color 0.2s;
+        position: relative;
+        transition:
+          background 0.2s,
+          color 0.2s,
+          transform 0.2s;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0.35rem;
+        width: 0;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--accent);
+        transition:
+          width 0.25s ease,
+          left 0.25s ease;
       }
 
       .nav-links a:hover {
         color: var(--text);
         background: var(--border);
+        transform: translateY(-1px);
+      }
+
+      .nav-links a:hover::after {
+        width: 55%;
+        left: 22.5%;
+      }
+
+      .nav-links a.is-active {
+        color: var(--accent);
+        background: color-mix(in srgb, var(--accent) 10%, transparent);
       }
 
       .nav-actions {
@@ -337,7 +520,7 @@
       }
 
       .theme-toggle:hover {
-        transform: scale(1.05);
+        transform: scale(1.08) rotate(12deg);
       }
 
       .nav-toggle {
@@ -496,6 +679,27 @@
         opacity: 1;
       }
 
+      .avatar-wrap.has-photo {
+        animation: avatarFloat 5s ease-in-out infinite;
+      }
+
+      .avatar-wrap.has-photo::before {
+        content: "";
+        position: absolute;
+        inset: -6px;
+        border-radius: 50%;
+        background: conic-gradient(
+          from 0deg,
+          var(--accent),
+          #5856d6,
+          #30d158,
+          var(--accent)
+        );
+        z-index: -1;
+        opacity: 0.55;
+        animation: spin 8s linear infinite;
+      }
+
       .avatar-fallback {
         background: linear-gradient(135deg, #0071e3, #5856d6);
         display: flex;
@@ -520,7 +724,9 @@
         background: color-mix(in srgb, var(--accent) 12%, transparent);
         padding: 0.35rem 0.85rem;
         border-radius: 100px;
-        margin-bottom: 1rem;
+        margin-bottom: 0.65rem;
+        margin-right: 0.35rem;
+        animation: badgeGlow 3s ease-in-out infinite;
       }
 
       .hero h1 {
@@ -529,6 +735,26 @@
         letter-spacing: -0.03em;
         line-height: 1.15;
         margin-bottom: 0.75rem;
+      }
+
+      .section-title {
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-title::after {
+        content: "";
+        display: block;
+        height: 3px;
+        width: 0;
+        margin-top: 0.55rem;
+        border-radius: 2px;
+        background: linear-gradient(90deg, var(--accent), #5856d6);
+        transition: width 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+      }
+
+      .section-title.reveal.is-visible::after {
+        width: min(72px, 40%);
       }
 
       .hero-tagline {
@@ -563,15 +789,35 @@
       }
 
       .btn-primary {
+        position: relative;
+        overflow: hidden;
         background: var(--accent);
         color: #fff;
+        z-index: 0;
+      }
+
+      .btn-primary::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 55%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.35),
+          transparent
+        );
+        animation: btnShine 2.8s ease-in-out infinite;
+        z-index: -1;
       }
 
       .btn-primary:hover {
         background: var(--accent-hover);
         color: #fff;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 40%, transparent);
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 10px 28px color-mix(in srgb, var(--accent) 45%, transparent);
       }
 
       .btn-secondary {
@@ -623,6 +869,19 @@
           grid-template-columns: 1fr 1fr;
           align-items: start;
         }
+      }
+
+      .about-grid .about-card.reveal:nth-child(1) {
+        transition-delay: 0.05s;
+      }
+      .about-grid .about-card.reveal:nth-child(2) {
+        transition-delay: 0.12s;
+      }
+      .about-grid .about-card.reveal:nth-child(3) {
+        transition-delay: 0.19s;
+      }
+      .about-grid .about-card.reveal:nth-child(4) {
+        transition-delay: 0.26s;
       }
 
       .about-card {
@@ -857,6 +1116,7 @@
       }
 
       .showcase-item.is-visible:hover {
+        transform: translateY(-6px);
         border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
         box-shadow: var(--shadow), 0 16px 48px var(--accent-glow);
       }
@@ -1184,6 +1444,20 @@
           scroll-behavior: auto;
         }
 
+        .bg-code {
+          display: none;
+        }
+
+        .avatar-wrap.has-photo {
+          animation: none;
+        }
+
+        .text-gradient {
+          animation: none;
+          -webkit-text-fill-color: var(--text);
+          background: none;
+        }
+
         *,
         *::before,
         *::after {
@@ -1194,9 +1468,18 @@
     </style>
   </head>
   <body>
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
     <div class="bg-grid" aria-hidden="true"></div>
     <div class="bg-orbs" aria-hidden="true">
       <span></span><span></span><span></span>
+    </div>
+    <div class="bg-code" aria-hidden="true">
+      <span>{ }</span>
+      <span>Swift</span>
+      <span>func()</span>
+      <span>=&gt;</span>
+      <span>// dev</span>
+      <span>&lt;/&gt;</span>
     </div>
 
     <nav class="nav" aria-label="Ana menü">
@@ -1232,7 +1515,7 @@
     <main>
       <header class="hero">
         <div class="container">
-          <div class="avatar-wrap" id="avatar-wrap">
+          <div class="avatar-wrap hero-enter" id="avatar-wrap">
             <img
               class="avatar"
               id="avatar-img"
@@ -1244,14 +1527,16 @@
             />
             <div class="avatar-fallback" aria-hidden="true">YÜ</div>
           </div>
-          <span class="hero-badge">iOS & Full-Stack Developer</span>
-          <h1>Merhaba, ben Yaren Ünal</h1>
-          <p class="hero-tagline">
+          <span class="hero-badge hero-enter">iOS & Full-Stack Developer</span>
+          <h1 class="hero-enter">
+            Merhaba, ben <span class="text-gradient">Yaren Ünal</span>
+          </h1>
+          <p class="hero-tagline hero-enter">
             Süleyman Demirel Üniversitesi Bilgisayar Mühendisliği 4. sınıf
             öğrencisiyim. Ankara’da yaşıyorum; SwiftUI, Flutter ve FastAPI ile
             mobil ve backend projeler geliştiriyorum.
           </p>
-          <div class="hero-cta">
+          <div class="hero-cta hero-enter">
             <a class="btn btn-primary" href="#projeler">Projelerimi Gör</a>
             <a
               class="btn btn-secondary"
@@ -1275,10 +1560,10 @@
 
       <section id="hakkimda">
         <div class="container">
-          <p class="section-label">Hakkımda</p>
-          <h2 class="section-title">Kısaca ben</h2>
+          <p class="section-label reveal">Hakkımda</p>
+          <h2 class="section-title reveal">Kısaca ben</h2>
           <div class="about-grid">
-            <article class="about-card">
+            <article class="about-card reveal">
               <h3>Eğitim</h3>
               <p>
                 <strong>Süleyman Demirel Üniversitesi</strong> — Bilgisayar
@@ -1286,7 +1571,7 @@
                 Mühendislik ve Doğa Bilimleri Fakültesi · 09.2022 – 06.2026
               </p>
             </article>
-            <article class="about-card">
+            <article class="about-card reveal">
               <h3>Staj deneyimim</h3>
     <ul>
       <li>
@@ -1299,7 +1584,7 @@
           </li>
         </ul>
             </article>
-            <article class="about-card">
+            <article class="about-card reveal">
               <h3>Ne yapıyorum?</h3>
               <p>
                 Native iOS (SwiftUI, Combine, CoreData) ve Flutter ile mobil
@@ -1309,7 +1594,7 @@
                 LangChain ile yapay zeka projelerine de ilgi duyuyorum.
               </p>
             </article>
-            <article class="about-card">
+            <article class="about-card reveal">
               <h3>Sertifikalar & hobiler</h3>
               <ul>
                 <li>BTK — SwiftUI ile Mobil Programlama (2024)</li>
@@ -1326,9 +1611,9 @@
 
       <section id="beceriler">
         <div class="container">
-          <p class="section-label">Beceriler</p>
-          <h2 class="section-title">Teknoloji yığınım</h2>
-          <div class="skills-group">
+          <p class="section-label reveal">Beceriler</p>
+          <h2 class="section-title reveal">Teknoloji yığınım</h2>
+          <div class="skills-group reveal">
             <h3>Mobil</h3>
             <div class="skills-grid">
               <span class="skill-tag">Swift</span>
@@ -1341,7 +1626,7 @@
               <span class="skill-tag">MapKit</span>
             </div>
           </div>
-          <div class="skills-group">
+          <div class="skills-group reveal">
             <h3>Backend & API</h3>
             <div class="skills-grid">
               <span class="skill-tag">FastAPI</span>
@@ -1357,7 +1642,7 @@
               <span class="skill-tag">RabbitMQ</span>
             </div>
           </div>
-          <div class="skills-group">
+          <div class="skills-group reveal">
             <h3>Cloud, AI & Araçlar</h3>
             <div class="skills-grid">
               <span class="skill-tag">Firebase</span>
@@ -1376,17 +1661,17 @@
 
       <section id="projeler">
         <div class="container">
-          <p class="section-label">Portfolyo</p>
-          <h2 class="section-title">Projelerim</h2>
-          <p class="featured-note">
+          <p class="section-label reveal">Portfolyo</p>
+          <h2 class="section-title reveal">Projelerim</h2>
+          <p class="featured-note reveal">
             Her projeyi kısaca tanıtıp yanında ekran kaydı veya demosunu
             izleyebilirsiniz.
           </p>
 
           <div class="showcase-list" id="project-showcase"></div>
 
-          <h2 class="section-title github-repos-title">GitHub repoları</h2>
-          <p class="featured-note">
+          <h2 class="section-title github-repos-title reveal">GitHub repoları</h2>
+          <p class="featured-note reveal">
             Diğer açık kaynak projelerim GitHub profilimden otomatik listelenir.
           </p>
           <div class="projects-grid" id="github-projects">
@@ -1400,9 +1685,9 @@
 
       <section id="iletisim">
         <div class="container">
-          <p class="section-label">İletişim</p>
-          <h2 class="section-title">Birlikte çalışalım</h2>
-          <div class="contact-card">
+          <p class="section-label reveal">İletişim</p>
+          <h2 class="section-title reveal">Birlikte çalışalım</h2>
+          <div class="contact-card reveal">
             <p>
               Ankara, Türkiye · Staj, freelance veya iş birliği için LinkedIn
               veya GitHub üzerinden ulaşabilirsiniz.
@@ -1436,7 +1721,7 @@
       </div>
     </footer>
 
-    <script src="assets/projects-data.js?v=9"></script>
+    <script src="assets/projects-data.js?v=10"></script>
     <script>
       const GITHUB_USER = "Yarenunal";
       const SKIP_REPOS = new Set(["blog"]);
@@ -1572,6 +1857,67 @@
         });
       }
 
+      function initScrollProgress() {
+        const bar = document.getElementById("scroll-progress");
+        if (!bar) return;
+        let ticking = false;
+        function update() {
+          const max =
+            document.documentElement.scrollHeight -
+            window.innerHeight;
+          const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+          bar.style.width = pct + "%";
+          ticking = false;
+        }
+        window.addEventListener(
+          "scroll",
+          function () {
+            if (!ticking) {
+              ticking = true;
+              requestAnimationFrame(update);
+            }
+          },
+          { passive: true }
+        );
+        update();
+      }
+
+      function initNavActive() {
+        const links = document.querySelectorAll('.nav-links a[href^="#"]');
+        const sections = [];
+        links.forEach(function (link) {
+          const id = link.getAttribute("href").slice(1);
+          const el = document.getElementById(id);
+          if (el) sections.push({ id: id, el: el, link: link });
+        });
+        if (!sections.length) return;
+
+        function setActive() {
+          const navH =
+            parseInt(
+              getComputedStyle(document.documentElement).getPropertyValue(
+                "--nav-height"
+              ),
+              10
+            ) || 64;
+          const y = window.scrollY + navH + 80;
+          let current = "";
+          sections.forEach(function (s) {
+            if (s.el.offsetTop <= y) current = s.id;
+          });
+          links.forEach(function (l) {
+            const match =
+              current && l.getAttribute("href") === "#" + current;
+            l.classList.toggle("is-active", !!match);
+          });
+        }
+
+        window.addEventListener("scroll", setActive, { passive: true });
+        setActive();
+      }
+
+      initScrollProgress();
+      initNavActive();
       initHeroTerminal();
       initReveal();
 

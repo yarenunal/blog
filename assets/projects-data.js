@@ -270,6 +270,8 @@ function renderProjectShowcase() {
   root.innerHTML = PROJECT_SHOWCASE.map(function (project, index) {
     const num = String(index + 1).padStart(2, "0");
     const reverse = index % 2 === 1 ? " showcase-item--reverse" : "";
+    const slide =
+      index % 2 === 0 ? " reveal-from-left" : " reveal-from-right";
     const projectId = "proje-" + (index + 1);
     const tags = (project.tags || [])
       .map(function (t) {
@@ -290,6 +292,7 @@ function renderProjectShowcase() {
 
     return (
       '<article class="showcase-item reveal' +
+      slide +
       reverse +
       '" id="' +
       projectId +
