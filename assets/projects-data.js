@@ -28,7 +28,7 @@ const PROJECT_SHOWCASE = [
     description:
       "Full-stack takas uygulaması. Flutter (MVVM); Flask, PostgreSQL, JWT/OTP, Docker ve Redis.",
     tags: ["Flutter", "Flask", "PostgreSQL", "JWT", "Docker"],
-    video: { type: "youtube", videoId: "" },
+    video: { type: "youtube", videoId: "Kkcq81ZbU7M" },
     links: [{ label: "GitHub", url: "https://github.com/Yarenunal" }],
   },
   {
@@ -36,7 +36,7 @@ const PROJECT_SHOWCASE = [
     description:
       "SwiftUI e-ticaret uygulaması. Node.js (Express), PostgreSQL, Redis, RabbitMQ, Docker ve CI/CD.",
     tags: ["SwiftUI", "Node.js", "PostgreSQL", "RabbitMQ", "Docker"],
-    video: { type: "youtube", videoId: "" },
+    video: { type: "youtube", videoId: "G2G0Yw62L7w" },
     links: [{ label: "GitHub", url: "https://github.com/Yarenunal" }],
   },
   {
