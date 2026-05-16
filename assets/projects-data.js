@@ -3,6 +3,7 @@
  *
  * YouTube: video: { type: "youtube", videoId: "..." }
  * LinkedIn: video: { type: "linkedin", embedUrl: "..." }
+ * Yerel MP4: video: { type: "file", src: "projects/.../demo.mp4" }
  * Görseller: media: { type: "gallery", images: [{ src, alt }] }
  */
 const YOUTUBE_CHANNEL = "";
@@ -89,7 +90,7 @@ const PROJECT_SHOWCASE = [
     description:
       "Ehliyet çıkmış sorular için iOS quiz. SwiftUI arayüz ve CoreData ile çevrimdışı soru bankası.",
     tags: ["SwiftUI", "CoreData", "iOS"],
-    video: { type: "youtube", videoId: "" },
+    video: { type: "file", src: "projects/ehliyet-quiz/demo.mp4" },
     links: [{ label: "GitHub", url: "https://github.com/Yarenunal" }],
   },
   {
@@ -147,6 +148,20 @@ function buildVideoHtml(video) {
       '<iframe src="' +
       escapeHtml(video.embedUrl) +
       '" title="LinkedIn gönderisi" loading="lazy" allowfullscreen></iframe>' +
+      "</div>"
+    );
+  }
+
+  if (video?.type === "file" && video.src) {
+    const src = resolveAssetUrl(video.src);
+    return (
+      '<div class="showcase-video-wrap showcase-video-wrap--file">' +
+      '<video controls playsinline preload="metadata">' +
+      '<source src="' +
+      escapeHtml(src) +
+      '" type="video/mp4" />' +
+      "Tarayıcınız video oynatmayı desteklemiyor." +
+      "</video>" +
       "</div>"
     );
   }
