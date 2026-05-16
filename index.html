@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <script>
@@ -34,6 +34,8 @@
         --nav-height: 64px;
         --max-width: 1080px;
         --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+        --accent-glow: color-mix(in srgb, var(--accent) 22%, transparent);
       }
 
       [data-theme="dark"] {
@@ -67,6 +69,153 @@
         line-height: 1.6;
         -webkit-font-smoothing: antialiased;
         overflow-anchor: none;
+        position: relative;
+      }
+
+      .bg-grid,
+      .bg-orbs {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .bg-grid {
+        background-image:
+          linear-gradient(var(--border) 1px, transparent 1px),
+          linear-gradient(90deg, var(--border) 1px, transparent 1px);
+        background-size: 56px 56px;
+        mask-image: radial-gradient(ellipse 90% 70% at 50% -10%, #000 20%, transparent 75%);
+        opacity: 0.55;
+        animation: gridPulse 8s ease-in-out infinite;
+      }
+
+      .bg-orbs span {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(72px);
+        opacity: 0.45;
+        animation: orbFloat 18s ease-in-out infinite;
+      }
+
+      .bg-orbs span:nth-child(1) {
+        width: 420px;
+        height: 420px;
+        background: var(--accent);
+        top: -12%;
+        right: -8%;
+        animation-delay: 0s;
+      }
+
+      .bg-orbs span:nth-child(2) {
+        width: 320px;
+        height: 320px;
+        background: #5856d6;
+        bottom: 10%;
+        left: -10%;
+        animation-delay: -6s;
+      }
+
+      .bg-orbs span:nth-child(3) {
+        width: 260px;
+        height: 260px;
+        background: #30d158;
+        top: 40%;
+        left: 35%;
+        opacity: 0.2;
+        animation-delay: -12s;
+      }
+
+      main,
+      .nav,
+      footer {
+        position: relative;
+        z-index: 1;
+      }
+
+      @keyframes gridPulse {
+        0%,
+        100% {
+          opacity: 0.45;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      @keyframes orbFloat {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        33% {
+          transform: translate(24px, -20px) scale(1.05);
+        }
+        66% {
+          transform: translate(-16px, 12px) scale(0.95);
+        }
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes blink {
+        0%,
+        49% {
+          opacity: 1;
+        }
+        50%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(32px);
+        transition:
+          opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .hero-enter {
+        opacity: 0;
+        animation: fadeUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      .hero-enter:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .hero-enter:nth-child(2) {
+        animation-delay: 0.12s;
+      }
+      .hero-enter:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+      .hero-enter:nth-child(4) {
+        animation-delay: 0.28s;
+      }
+      .hero-enter:nth-child(5) {
+        animation-delay: 0.36s;
+      }
+      .hero-enter:nth-child(6) {
+        animation-delay: 0.44s;
+      }
+      .hero-enter:nth-child(7) {
+        animation-delay: 0.52s;
       }
 
       a {
@@ -115,6 +264,24 @@
         font-size: 1.05rem;
         color: var(--text);
         letter-spacing: -0.02em;
+        font-family: var(--mono);
+      }
+
+      .nav-logo::before {
+        content: "~/";
+        color: var(--accent);
+        margin-right: 0.15rem;
+      }
+
+      .nav {
+        transform: translateY(-100%);
+        animation: navSlide 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+      }
+
+      @keyframes navSlide {
+        to {
+          transform: translateY(0);
+        }
       }
 
       .nav-links {
@@ -178,9 +345,118 @@
 
       /* ——— Hero ——— */
       .hero {
-        padding: calc(var(--nav-height) + 4rem) 0 5rem;
+        padding: calc(var(--nav-height) + 3rem) 0 4rem;
         text-align: center;
         overflow-anchor: none;
+      }
+
+      .hero-layout {
+        display: grid;
+        gap: 2.5rem;
+        align-items: center;
+      }
+
+      @media (min-width: 900px) {
+        .hero-layout {
+          grid-template-columns: 1fr 1.1fr;
+          text-align: left;
+          gap: 3rem;
+        }
+
+        .hero-intro {
+          order: 1;
+        }
+
+        .hero-terminal-wrap {
+          order: 2;
+        }
+
+        .hero-cta {
+          justify-content: flex-start;
+        }
+      }
+
+      .hero-terminal {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: var(--shadow), 0 0 0 1px var(--accent-glow);
+        text-align: left;
+      }
+
+      .terminal-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.65rem 1rem;
+        background: color-mix(in srgb, var(--bg) 60%, var(--surface));
+        border-bottom: 1px solid var(--border);
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        color: var(--text-secondary);
+      }
+
+      .terminal-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      .terminal-dot--r {
+        background: #ff5f57;
+      }
+      .terminal-dot--y {
+        background: #febc2e;
+      }
+      .terminal-dot--g {
+        background: #28c840;
+      }
+
+      .terminal-body {
+        padding: 1.15rem 1.25rem;
+        font-family: var(--mono);
+        font-size: clamp(0.7rem, 2vw, 0.82rem);
+        line-height: 1.65;
+        color: var(--text-secondary);
+        overflow-x: auto;
+        min-height: 11rem;
+      }
+
+      .terminal-body .kw {
+        color: #ad3ff0;
+      }
+      .terminal-body .fn {
+        color: var(--accent);
+      }
+      .terminal-body .str {
+        color: #30d158;
+      }
+      .terminal-body .num {
+        color: #ff9f0a;
+      }
+      .terminal-body .cmt {
+        color: var(--text-secondary);
+        opacity: 0.85;
+      }
+
+      .terminal-cursor {
+        display: inline-block;
+        width: 8px;
+        height: 1em;
+        background: var(--accent);
+        margin-left: 2px;
+        vertical-align: text-bottom;
+        animation: blink 1s step-end infinite;
+      }
+
+      .hero-badge--engineer {
+        background: color-mix(in srgb, #30d158 14%, transparent);
+        color: #248a3d;
+      }
+
+      [data-theme="dark"] .hero-badge--engineer {
+        color: #30d158;
       }
 
       .avatar-wrap {
@@ -269,7 +545,10 @@
         border-radius: 980px;
         font-size: 0.95rem;
         font-weight: 600;
-        transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+        transition:
+          transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.25s ease,
+          background 0.2s;
         border: none;
         cursor: pointer;
         font-family: inherit;
@@ -283,8 +562,8 @@
       .btn-primary:hover {
         background: var(--accent-hover);
         color: #fff;
-        transform: translateY(-1px);
-        box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 35%, transparent);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 40%, transparent);
       }
 
       .btn-secondary {
@@ -305,12 +584,17 @@
       }
 
       .section-label {
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
         color: var(--accent);
         margin-bottom: 0.5rem;
+      }
+
+      .section-label::before {
+        content: "// ";
+        opacity: 0.65;
       }
 
       .section-title {
@@ -339,11 +623,34 @@
         padding: 1.75rem;
         border: 1px solid var(--border);
         box-shadow: var(--shadow);
+        transition:
+          transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.35s ease,
+          border-color 0.35s ease;
+      }
+
+      .about-card:hover {
+        transform: translateY(-6px);
+        border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+        box-shadow: var(--shadow), 0 12px 40px var(--accent-glow);
       }
 
       .about-card h3 {
-        font-size: 1.1rem;
+        font-family: var(--mono);
+        font-size: 0.95rem;
         margin-bottom: 1rem;
+      }
+
+      .about-card h3::before {
+        content: "{ ";
+        color: var(--accent);
+        font-weight: 400;
+      }
+
+      .about-card h3::after {
+        content: " }";
+        color: var(--accent);
+        font-weight: 400;
       }
 
       .about-card p,
@@ -402,7 +709,45 @@
 
       .skill-tag:hover {
         border-color: var(--accent);
-        transform: translateY(-2px);
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 6px 16px var(--accent-glow);
+      }
+
+      .skills-group.reveal .skill-tag {
+        opacity: 0;
+        transform: scale(0.9);
+        transition:
+          opacity 0.4s ease,
+          transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .skills-group.is-visible .skill-tag {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .skills-group.is-visible .skill-tag:nth-child(1) {
+        transition-delay: 0.05s;
+      }
+      .skills-group.is-visible .skill-tag:nth-child(2) {
+        transition-delay: 0.1s;
+      }
+      .skills-group.is-visible .skill-tag:nth-child(3) {
+        transition-delay: 0.15s;
+      }
+      .skills-group.is-visible .skill-tag:nth-child(4) {
+        transition-delay: 0.2s;
+      }
+      .skills-group.is-visible .skill-tag:nth-child(5) {
+        transition-delay: 0.25s;
+      }
+      .skills-group.is-visible .skill-tag:nth-child(6) {
+        transition-delay: 0.3s;
+      }
+      .skills-group.is-visible .skill-tag:nth-child(n + 7) {
+        transition-delay: 0.35s;
       }
 
       /* ——— Projects ——— */
@@ -435,9 +780,10 @@
         transition: transform 0.25s, box-shadow 0.25s;
       }
 
-      .project-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      .project-card.reveal.is-visible:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 32px var(--accent-glow);
+        border-color: color-mix(in srgb, var(--accent) 25%, var(--border));
       }
 
       .project-card h3 {
@@ -496,6 +842,23 @@
         border-radius: calc(var(--radius) + 4px);
         padding: 1.5rem;
         box-shadow: var(--shadow);
+        transition:
+          transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.4s ease,
+          border-color 0.4s ease;
+      }
+
+      .showcase-item.is-visible:hover {
+        border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+        box-shadow: var(--shadow), 0 16px 48px var(--accent-glow);
+      }
+
+      .showcase-index {
+        transition: color 0.3s ease;
+      }
+
+      .showcase-item.is-visible:hover .showcase-index {
+        color: #5856d6;
       }
 
       @media (min-width: 900px) {
@@ -823,6 +1186,11 @@
     </style>
   </head>
   <body>
+    <motion class="bg-grid" aria-hidden="true"></motion>
+    <div class="bg-orbs" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </motion>
+
     <nav class="nav" aria-label="Ana menü">
       <div class="container nav-inner">
         <a href="#" class="nav-logo">Yaren Ünal</a>
@@ -1060,7 +1428,7 @@
       </div>
     </footer>
 
-    <script src="assets/projects-data.js?v=6"></script>
+    <script src="assets/projects-data.js?v=7"></script>
     <script>
       const GITHUB_USER = "Yarenunal";
       const SKIP_REPOS = new Set(["blog"]);
@@ -1131,6 +1499,56 @@
 
       document.getElementById("year").textContent = new Date().getFullYear();
 
+      // Scroll reveal animasyonları
+      window.initReveal = function initReveal() {
+        const prefersReduced = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+        const els = document.querySelectorAll(".reveal:not(.is-visible)");
+        if (prefersReduced) {
+          els.forEach((el) => el.classList.add("is-visible"));
+          return;
+        }
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -48px 0px" }
+        );
+        els.forEach((el) => observer.observe(el));
+      };
+
+      // Hero terminal — yazı animasyonu
+      function initHeroTerminal() {
+        const el = document.getElementById("hero-code");
+        if (!el) return;
+        const lines = [
+          '<span class="cmt">// Bilgisayar Mühendisliği · Portfolio</span>',
+          '<span class="kw">struct</span> <span class="fn">Engineer</span> {',
+          '  <span class="kw">let</span> degree = <span class="str">"Computer Engineering"</span>',
+          '  <span class="kw">let</span> year = <span class="num">4</span>',
+          '  <span class="kw">let</span> stack = [<span class="str">"Swift"</span>, <span class="str">"Python"</span>, <span class="str">"FastAPI"</span>]',
+          '  <span class="kw">func</span> <span class="fn">build</span>() -> [<span class="str">"mobile"</span>, <span class="str">"backend"</span>, <span class="str">"AI"</span>]',
+          '}',
+          '<span class="fn">Engineer</span>().build() <span class="cmt">// shipping...</span>',
+        ];
+        el.innerHTML = lines.join("\n");
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        el.style.opacity = "0";
+        requestAnimationFrame(() => {
+          el.style.transition = "opacity 0.5s ease";
+          el.style.opacity = "1";
+        });
+      }
+
+      initHeroTerminal();
+      initReveal();
+
       // Mobilde kayıtlı scroll / #projeler hash ile aşağı inmeyi engelle
       function ensurePageTop() {
         if (!location.hash) window.scrollTo(0, 0);
@@ -1188,7 +1606,7 @@
             const lang = repo.language || "—";
             const dotColor = langColors[lang] || "var(--accent)";
             const card = document.createElement("article");
-            card.className = "project-card";
+            card.className = "project-card reveal";
             card.innerHTML = `
               <h3>${escapeHtml(repo.name)}</h3>
               <p>${escapeHtml(repo.description || "Açıklama eklenmemiş.")}</p>
@@ -1203,6 +1621,7 @@
             `;
             container.appendChild(card);
           });
+          if (window.initReveal) window.initReveal();
         } catch {
           loading.remove();
           container.innerHTML =

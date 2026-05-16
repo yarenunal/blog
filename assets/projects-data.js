@@ -289,7 +289,7 @@ function renderProjectShowcase() {
       .join("");
 
     return (
-      '<article class="showcase-item' +
+      '<article class="showcase-item reveal' +
       reverse +
       '" id="' +
       projectId +
@@ -317,6 +317,14 @@ function renderProjectShowcase() {
   }).join("");
 
   initGalleries();
+
+  document.querySelectorAll(".showcase-item").forEach(function (el, i) {
+    el.style.transitionDelay = i * 0.07 + "s";
+  });
+
+  if (typeof window.initReveal === "function") {
+    window.initReveal();
+  }
 }
 
 document.addEventListener("DOMContentLoaded", renderProjectShowcase);
