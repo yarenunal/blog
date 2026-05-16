@@ -93,22 +93,6 @@ const PROJECT_SHOWCASE = [
     video: { type: "file", src: "projects/ehliyet-quiz/demo.mp4" },
     links: [{ label: "GitHub", url: "https://github.com/Yarenunal" }],
   },
-  {
-    title: "Film Karakterleri Kitaplığı",
-    description:
-      "TEDAŞ stajında geliştirilen iOS uygulaması. SwiftUI ile film karakterleri kitaplığı.",
-    tags: ["SwiftUI", "REST API", "iOS"],
-    video: { type: "youtube", videoId: "" },
-    links: [{ label: "GitHub", url: "https://github.com/Yarenunal" }],
-  },
-  {
-    title: "ToDos Tutorial",
-    description:
-      "SwiftUI görev yönetimi. REST API ile senkronizasyon — TEDAŞ stajı kapsamında.",
-    tags: ["SwiftUI", "REST API"],
-    video: { type: "youtube", videoId: "" },
-    links: [{ label: "GitHub", url: "https://github.com/Yarenunal" }],
-  },
 ];
 
 function parseYoutubeId(input) {
