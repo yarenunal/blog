@@ -1,10 +1,11 @@
 /**
- * Proje vitrinı — video linklerini buradan güncelleyin.
+ * Proje vitrinı — medya buradan güncellenir.
  *
- * YouTube: videoId → 11 haneli ID veya tam link (youtu.be / watch?v=)
- * LinkedIn: gönderi → ⋯ → "Gönderiyi yerleştir" → iframe src → embedUrl
+ * YouTube: video: { type: "youtube", videoId: "..." }
+ * LinkedIn: video: { type: "linkedin", embedUrl: "..." }
+ * Görseller: media: { type: "gallery", images: [{ src, alt }] }
  */
-const YOUTUBE_CHANNEL = ""; // örn. "https://www.youtube.com/@kanaladiniz"
+const YOUTUBE_CHANNEL = "";
 
 const PROJECT_SHOWCASE = [
   {
@@ -42,9 +43,25 @@ const PROJECT_SHOWCASE = [
   {
     title: "SQL ChatBot",
     description:
-      "Doğal dil ile SQL sorgulama. LangChain, Ollama, PostgreSQL, Redis ve FastAPI — ANKAREF staj projesi.",
-    tags: ["Python", "LangChain", "FastAPI", "LLM", "NLP"],
-    video: { type: "youtube", videoId: "" },
+      "PostgreSQL veritabanıyla Türkçe doğal dilde konuşan chatbot. LangChain ve Ollama ile metin → SQL dönüşümü; sorgu, açıklama ve güven skoru sunar. ANKAREF staj projesi.",
+    tags: ["Python", "LangChain", "FastAPI", "PostgreSQL", "LLM"],
+    media: {
+      type: "gallery",
+      images: [
+        {
+          src: "assets/projects/sql-chatbot/ana-ekran.png",
+          alt: "PostgreSQL Chatbot ana arayüzü ve örnek sorgular",
+        },
+        {
+          src: "assets/projects/sql-chatbot/sorgu-teklif.png",
+          alt: "En çok teklif alan araç sorusu ve üretilen SQL",
+        },
+        {
+          src: "assets/projects/sql-chatbot/sorgu-yil.png",
+          alt: "Model yılı sorgusu ve SQL sonucu",
+        },
+      ],
+    },
     links: [{ label: "GitHub", url: "https://github.com/Yarenunal" }],
   },
   {
@@ -131,10 +148,98 @@ function buildVideoHtml(video) {
     "<p>Demo videosu henüz eklenmedi</p>" +
     '<p class="showcase-placeholder-hint">' +
     channelHint +
-    " · <code>assets/projects-data.js</code></p>" +
+    "</p>" +
     watchLink +
     "</div>"
   );
+}
+
+function buildGalleryHtml(media, projectId) {
+  const images = media.images || [];
+  if (!images.length) return buildVideoHtml(null);
+
+  const galleryId = "gallery-" + projectId;
+  const main = images[0];
+
+  const thumbs = images
+    .map(function (img, i) {
+      return (
+        '<button type="button" class="showcase-gallery-thumb' +
+        (i === 0 ? " is-active" : "") +
+        '" data-gallery="' +
+        galleryId +
+        '" data-src="' +
+        escapeHtml(img.src) +
+        '" data-alt="' +
+        escapeHtml(img.alt || "") +
+        '" aria-label="' +
+        escapeHtml(img.alt || "Görsel " + (i + 1)) +
+        '">' +
+        '<img src="' +
+        escapeHtml(img.src) +
+        '" alt="" loading="lazy" />' +
+        "</button>"
+      );
+    })
+    .join("");
+
+  const thumbRow =
+    images.length > 1
+      ? '<div class="showcase-gallery-thumbs">' + thumbs + "</div>"
+      : "";
+
+  return (
+    '<div class="showcase-gallery" id="' +
+    galleryId +
+    '">' +
+    '<div class="showcase-gallery-main">' +
+    '<img id="' +
+    galleryId +
+    '-main" src="' +
+    escapeHtml(main.src) +
+    '" alt="' +
+    escapeHtml(main.alt || "") +
+    '" loading="eager" />' +
+    "</div>" +
+    thumbRow +
+    '<p class="showcase-gallery-caption" id="' +
+    galleryId +
+    '-caption">' +
+    escapeHtml(main.alt || "") +
+    "</p>" +
+    "</div>"
+  );
+}
+
+function buildMediaHtml(project, projectId) {
+  if (project.media?.type === "gallery") {
+    return buildGalleryHtml(project.media, projectId);
+  }
+  return buildVideoHtml(project.video);
+}
+
+function initGalleries() {
+  document.querySelectorAll(".showcase-gallery-thumb").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const galleryId = btn.getAttribute("data-gallery");
+      const main = document.getElementById(galleryId + "-main");
+      const caption = document.getElementById(galleryId + "-caption");
+      const src = btn.getAttribute("data-src");
+      const alt = btn.getAttribute("data-alt") || "";
+
+      if (main) {
+        main.src = src;
+        main.alt = alt;
+      }
+      if (caption) caption.textContent = alt;
+
+      document
+        .querySelectorAll('[data-gallery="' + galleryId + '"]')
+        .forEach(function (b) {
+          b.classList.toggle("is-active", b === btn);
+        });
+    });
+  });
 }
 
 function renderProjectShowcase() {
@@ -144,6 +249,7 @@ function renderProjectShowcase() {
   root.innerHTML = PROJECT_SHOWCASE.map(function (project, index) {
     const num = String(index + 1).padStart(2, "0");
     const reverse = index % 2 === 1 ? " showcase-item--reverse" : "";
+    const projectId = "proje-" + (index + 1);
     const tags = (project.tags || [])
       .map(function (t) {
         return '<span class="showcase-tag">' + escapeHtml(t) + "</span>";
@@ -164,8 +270,8 @@ function renderProjectShowcase() {
     return (
       '<article class="showcase-item' +
       reverse +
-      '" id="proje-' +
-      (index + 1) +
+      '" id="' +
+      projectId +
       '">' +
       '<div class="showcase-content">' +
       '<span class="showcase-index">' +
@@ -177,17 +283,19 @@ function renderProjectShowcase() {
       "<p>" +
       escapeHtml(project.description) +
       "</p>" +
-      '<motion class="showcase-tags">' +
+      '<div class="showcase-tags">' +
       tags +
-      "</motion>" +
+      "</div>" +
       (links ? '<div class="showcase-links">' + links + "</div>" : "") +
       "</div>" +
       '<div class="showcase-media">' +
-      buildVideoHtml(project.video) +
+      buildMediaHtml(project, projectId) +
       "</div>" +
       "</article>"
     );
   }).join("");
+
+  initGalleries();
 }
 
 document.addEventListener("DOMContentLoaded", renderProjectShowcase);
