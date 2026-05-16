@@ -178,22 +178,30 @@
         box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 70%, transparent);
       }
 
-      [data-theme="dark"] .text-gradient {
-        background-image: linear-gradient(
-          120deg,
-          #ffffff 0%,
-          #64d2ff 28%,
-          #bf5af2 50%,
-          #0a84ff 72%,
-          #ffffff 100%
-        );
-        background-size: 200% auto;
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        color: #f5f5f7;
-        display: inline;
-        animation: textShimmerDark 6s linear infinite;
+      @keyframes nameGlowDark {
+        0%,
+        100% {
+          color: #f5f5f7;
+          text-shadow:
+            0 0 20px rgba(100, 210, 255, 0.45),
+            0 0 40px rgba(10, 132, 255, 0.2);
+        }
+        50% {
+          color: #64d2ff;
+          text-shadow:
+            0 0 28px rgba(100, 210, 255, 0.75),
+            0 0 50px rgba(191, 90, 242, 0.35);
+        }
+      }
+
+      [data-theme="dark"] .hero-name {
+        background: none !important;
+        background-image: none !important;
+        -webkit-background-clip: border-box !important;
+        background-clip: border-box !important;
+        -webkit-text-fill-color: #f5f5f7 !important;
+        color: #f5f5f7 !important;
+        animation: nameGlowDark 5s ease-in-out infinite;
       }
 
       [data-theme="dark"] .hero-badge {
@@ -572,8 +580,12 @@
         transform: translateX(36px) translateY(20px) scale(0.98);
       }
 
-      .text-gradient {
+      .hero-name {
         display: inline;
+        font-weight: 700;
+      }
+
+      .hero-name.text-gradient {
         background-image: linear-gradient(
           120deg,
           var(--text) 0%,
@@ -588,6 +600,14 @@
         -webkit-text-fill-color: transparent;
         color: var(--text);
         animation: textShimmer 7s linear infinite;
+      }
+
+      @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+        .hero-name.text-gradient {
+          background: none;
+          -webkit-text-fill-color: var(--accent);
+          color: var(--accent);
+        }
       }
 
       .hero-enter {
@@ -1694,7 +1714,7 @@
           animation: none;
         }
 
-        .text-gradient {
+        .hero-name.text-gradient {
           animation: none;
           -webkit-text-fill-color: var(--text);
           background: none;
@@ -1775,7 +1795,7 @@
           </div>
           <span class="hero-badge hero-enter">iOS & Full-Stack Developer</span>
           <h1 class="hero-enter">
-            Merhaba, ben <span class="text-gradient">Yaren Ünal</span>
+            Merhaba, ben <span class="hero-name text-gradient">Yaren Ünal</span>
           </h1>
           <p class="hero-tagline hero-enter">
             Süleyman Demirel Üniversitesi Bilgisayar Mühendisliği 4. sınıf
