@@ -40,8 +40,8 @@ const PROJECT_SHOWCASE = [
   {
     title: "NotasyonApp",
     description:
-      "Elinizdeki bir ses kaydını (MP3) otomatik olarak notaya, MusicXML ve PDF’e çevirir — müzisyenler ve öğrenciler kaydı yazıya dökebilir, partisyonu paylaşabilir.",
-    tags: ["Flutter", "FastAPI", "Redis", "librosa", "music21"],
+      "Lisans bitirme projem; TÜBİTAK 2209-A programından kabul aldı. MP3 ses kaydını otomatik olarak notaya, MusicXML ve PDF’e çevirir — müzisyenler ve öğrenciler kaydı yazıya dökebilir, partisyonu paylaşabilir.",
+    tags: ["TÜBİTAK 2209-A", "Flutter", "FastAPI", "Redis", "librosa"],
     video: { type: "youtube", videoId: "" },
     links: [{ label: "GitHub", url: "https://github.com/Yarenunal" }],
   },
