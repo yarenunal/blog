@@ -179,15 +179,20 @@
       }
 
       [data-theme="dark"] .text-gradient {
-        background: linear-gradient(
+        background-image: linear-gradient(
           120deg,
-          #f5f5f7 0%,
-          #0a84ff 30%,
+          #ffffff 0%,
+          #64d2ff 28%,
           #bf5af2 50%,
-          #64d2ff 70%,
-          #f5f5f7 100%
+          #0a84ff 72%,
+          #ffffff 100%
         );
         background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: #f5f5f7;
+        display: inline;
         animation: textShimmerDark 6s linear infinite;
       }
 
@@ -568,7 +573,8 @@
       }
 
       .text-gradient {
-        background: linear-gradient(
+        display: inline;
+        background-image: linear-gradient(
           120deg,
           var(--text) 0%,
           var(--accent) 40%,
@@ -576,9 +582,11 @@
           var(--text) 100%
         );
         background-size: 200% auto;
+        background-repeat: repeat;
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
+        color: var(--text);
         animation: textShimmer 7s linear infinite;
       }
 
