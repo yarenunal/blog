@@ -60,6 +60,9 @@
       html {
         scroll-behavior: smooth;
         scroll-padding-top: calc(var(--nav-height) + 16px);
+        overflow-x: hidden;
+        overflow-y: scroll;
+        height: auto;
       }
 
       body {
@@ -68,8 +71,11 @@
         color: var(--text);
         line-height: 1.6;
         -webkit-font-smoothing: antialiased;
-        overflow-anchor: none;
         position: relative;
+        overflow-x: hidden;
+        overflow-y: visible;
+        min-height: 100%;
+        touch-action: pan-y;
       }
 
       .bg-grid,
@@ -78,6 +84,7 @@
         inset: 0;
         pointer-events: none;
         z-index: 0;
+        overflow: hidden;
       }
 
       .bg-grid {
@@ -127,10 +134,13 @@
       }
 
       main,
-      .nav,
       footer {
         position: relative;
         z-index: 1;
+      }
+
+      main {
+        overflow: visible;
       }
 
       @keyframes gridPulse {
@@ -250,6 +260,16 @@
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         border-bottom: 1px solid var(--border);
+        animation: navFadeIn 0.45s ease 0.05s both;
+      }
+
+      @keyframes navFadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
       }
 
       .nav-inner {
@@ -271,17 +291,6 @@
         content: "~/";
         color: var(--accent);
         margin-right: 0.15rem;
-      }
-
-      .nav {
-        transform: translateY(-100%);
-        animation: navSlide 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
-      }
-
-      @keyframes navSlide {
-        to {
-          transform: translateY(0);
-        }
       }
 
       .nav-links {
@@ -347,7 +356,6 @@
       .hero {
         padding: calc(var(--nav-height) + 3rem) 0 4rem;
         text-align: center;
-        overflow-anchor: none;
       }
 
       .hero-layout {
@@ -1186,10 +1194,10 @@
     </style>
   </head>
   <body>
-    <motion class="bg-grid" aria-hidden="true"></motion>
+    <div class="bg-grid" aria-hidden="true"></div>
     <div class="bg-orbs" aria-hidden="true">
       <span></span><span></span><span></span>
-    </motion>
+    </div>
 
     <nav class="nav" aria-label="Ana menü">
       <div class="container nav-inner">
@@ -1428,7 +1436,7 @@
       </div>
     </footer>
 
-    <script src="assets/projects-data.js?v=7"></script>
+    <script src="assets/projects-data.js?v=8"></script>
     <script>
       const GITHUB_USER = "Yarenunal";
       const SKIP_REPOS = new Set(["blog"]);
@@ -1549,15 +1557,22 @@
       initHeroTerminal();
       initReveal();
 
-      // Mobilde kayıtlı scroll / #projeler hash ile aşağı inmeyi engelle
-      function ensurePageTop() {
-        if (!location.hash) window.scrollTo(0, 0);
+      // Reveal takılırsa içerik görünür ve scroll çalışır kalsın
+      setTimeout(function () {
+        document.querySelectorAll(".reveal:not(.is-visible)").forEach(function (el) {
+          el.classList.add("is-visible");
+        });
+      }, 2500);
+
+      // Sayfa açılışında bir kez üste al (scroll kilidi yapmaz)
+      let pageTopDone = false;
+      function ensurePageTopOnce() {
+        if (pageTopDone || location.hash) return;
+        pageTopDone = true;
+        window.scrollTo(0, 0);
       }
 
-      window.addEventListener("pageshow", ensurePageTop);
-      window.addEventListener("load", () => {
-        if (!location.hash) requestAnimationFrame(() => window.scrollTo(0, 0));
-      });
+      window.addEventListener("load", ensurePageTopOnce, { once: true });
 
       document.querySelectorAll('a[href^="#"]').forEach((link) => {
         const hash = link.getAttribute("href");
