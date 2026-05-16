@@ -180,21 +180,31 @@
         width: 140px;
         height: 140px;
         margin: 0 auto 1.5rem;
+        flex-shrink: 0;
       }
 
-      .avatar {
+      .avatar,
+      .avatar-fallback {
+        position: absolute;
+        inset: 0;
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        object-fit: cover;
         border: 4px solid var(--surface);
         box-shadow: var(--shadow);
       }
 
+      .avatar {
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      .avatar-wrap.has-photo .avatar {
+        opacity: 1;
+      }
+
       .avatar-fallback {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
         background: linear-gradient(135deg, #0071e3, #5856d6);
         display: flex;
         align-items: center;
@@ -202,12 +212,10 @@
         font-size: 2.5rem;
         font-weight: 700;
         color: #fff;
-        border: 4px solid var(--surface);
-        box-shadow: var(--shadow);
       }
 
       .avatar-wrap.has-photo .avatar-fallback {
-        display: none;
+        visibility: hidden;
       }
 
       .hero-badge {
@@ -829,7 +837,7 @@
         avatarWrap.classList.add("has-photo");
       });
       avatarImg.addEventListener("error", () => {
-        avatarImg.style.display = "none";
+        avatarImg.removeAttribute("src");
       });
       if (avatarImg.complete && avatarImg.naturalWidth > 0) {
         avatarWrap.classList.add("has-photo");
