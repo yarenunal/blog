@@ -480,6 +480,169 @@
         font-weight: 600;
       }
 
+      /* ——— Project showcase (video + text) ——— */
+      .showcase-list {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+      }
+
+      .showcase-item {
+        display: grid;
+        gap: 2rem;
+        align-items: center;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: calc(var(--radius) + 4px);
+        padding: 1.5rem;
+        box-shadow: var(--shadow);
+      }
+
+      @media (min-width: 900px) {
+        .showcase-item {
+          grid-template-columns: 1fr 1.05fr;
+          padding: 2rem;
+          gap: 2.5rem;
+        }
+
+        .showcase-item--reverse .showcase-content {
+          order: 2;
+        }
+
+        .showcase-item--reverse .showcase-media {
+          order: 1;
+        }
+      }
+
+      .showcase-index {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+      }
+
+      .showcase-content h3 {
+        font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.75rem;
+      }
+
+      .showcase-content p {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        line-height: 1.65;
+        margin-bottom: 1.25rem;
+      }
+
+      .showcase-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .showcase-tag {
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0.35rem 0.75rem;
+        border-radius: 100px;
+        background: color-mix(in srgb, var(--accent) 10%, transparent);
+        color: var(--accent);
+        border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+      }
+
+      .showcase-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .showcase-media {
+        width: 100%;
+      }
+
+      .showcase-video-wrap {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #000;
+        border: 1px solid var(--border);
+      }
+
+      .showcase-video-wrap iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      .showcase-video-wrap--linkedin iframe {
+        min-height: 100%;
+      }
+
+      .showcase-video-placeholder {
+        aspect-ratio: 16 / 9;
+        border-radius: 12px;
+        border: 2px dashed var(--border);
+        background: color-mix(in srgb, var(--accent) 6%, var(--surface));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1.5rem;
+        text-align: center;
+      }
+
+      .showcase-play-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .showcase-video-placeholder p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      .showcase-placeholder-hint {
+        font-size: 0.8rem !important;
+      }
+
+      .showcase-placeholder-hint code {
+        font-size: 0.75rem;
+        background: var(--bg);
+        padding: 0.15rem 0.4rem;
+        border-radius: 4px;
+      }
+
+      .showcase-placeholder-link {
+        margin-top: 0.5rem;
+        font-weight: 600;
+        font-size: 0.85rem;
+      }
+
+      .github-repos-title {
+        margin-top: 4rem;
+        font-size: 1.35rem;
+      }
+
       #github-projects {
         min-height: 320px;
       }
@@ -730,7 +893,7 @@
         <div class="container">
           <p class="section-label">Beceriler</p>
           <h2 class="section-title">Teknoloji yığınım</h2>
-          <motion class="skills-group">
+          <div class="skills-group">
             <h3>Mobil</h3>
             <div class="skills-grid">
               <span class="skill-tag">Swift</span>
@@ -741,8 +904,8 @@
               <span class="skill-tag">MVVM</span>
               <span class="skill-tag">StoreKit 2</span>
               <span class="skill-tag">MapKit</span>
-            </motion>
-          </motion>
+            </div>
+          </div>
           <div class="skills-group">
             <h3>Backend & API</h3>
             <div class="skills-grid">
@@ -757,11 +920,11 @@
               <span class="skill-tag">MySQL</span>
               <span class="skill-tag">Redis</span>
               <span class="skill-tag">RabbitMQ</span>
-            </motion>
-          </motion>
+            </div>
+          </div>
           <div class="skills-group">
             <h3>Cloud, AI & Araçlar</h3>
-            <motion class="skills-grid">
+            <div class="skills-grid">
               <span class="skill-tag">Firebase</span>
               <span class="skill-tag">Docker</span>
               <span class="skill-tag">CI/CD</span>
@@ -771,8 +934,8 @@
               <span class="skill-tag">Java</span>
               <span class="skill-tag">Git & GitHub</span>
               <span class="skill-tag">Postman</span>
-            </motion>
-          </motion>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -781,77 +944,16 @@
           <p class="section-label">Portfolyo</p>
           <h2 class="section-title">Projelerim</h2>
           <p class="featured-note">
-            Öne çıkan projeler aşağıda; tam liste GitHub profilimden
-            otomatik yüklenir.
+            Her projeyi kısaca tanıtıp yanında ekran kaydı veya demosunu
+            izleyebilirsiniz.
           </p>
 
-          <!-- Öne çıkan projeler — istediğiniz zaman düzenleyebilirsiniz -->
-          <div class="projects-grid" id="featured-projects">
-            <article class="project-card">
-              <h3>Notasyon App</h3>
-              <p>
-                Ses kaydından müzik notasyonu üreten, PDF ve MusicXML çıktısı
-                veren tam yığın bir uygulama. FastAPI backend ve iş kuyruğu
-                mimarisi.
-              </p>
-              <div class="project-meta">
-                <span class="project-lang"
-                  ><span class="lang-dot"></span>Python · Swift</span
-                >
-                <a
-                  class="project-link"
-                  href="https://github.com/Yarenunal"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >GitHub →</a
-                >
-              </div>
-            </article>
-            <article class="project-card">
-              <h3>iOS Uygulamaları</h3>
-              <p>
-                Swift ve SwiftUI ile geliştirdiğim mobil projeler — kullanıcı
-                arayüzü odaklı, App Store hedefli deneyimler.
-              </p>
-              <div class="project-meta">
-                <span class="project-lang"
-                  ><span class="lang-dot" style="background: #f05138"></span
-                  >Swift</span
-                >
-                <a
-                  class="project-link"
-                  href="https://github.com/Yarenunal?tab=repositories"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >Tüm repolar →</a
-                >
-              </div>
-            </article>
-            <article class="project-card">
-              <h3>Bu Blog</h3>
-              <p>
-                Kişisel iOS geliştirici portfolyom — GitHub Pages üzerinde
-                barındırılan, hafif ve modern tek sayfa sitesi.
-              </p>
-              <div class="project-meta">
-                <span class="project-lang"
-                  ><span class="lang-dot" style="background: #e34c26"></span
-                  >HTML · CSS</span
-                >
-                <a
-                  class="project-link"
-                  href="https://github.com/Yarenunal/blog"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >Kaynak kod →</a
-                >
-              </div>
-            </article>
-          </div>
+          <div class="showcase-list" id="project-showcase"></div>
 
-          <h2 class="section-title" style="margin-top: 3rem; font-size: 1.35rem">
-            GitHub'dan
-          </h2>
+          <h2 class="section-title github-repos-title">GitHub repoları</h2>
+          <p class="featured-note">
+            Diğer açık kaynak projelerim GitHub profilimden otomatik listelenir.
+          </p>
           <div class="projects-grid" id="github-projects">
             <div class="projects-loading" id="projects-loading">
               <div class="spinner"></div>
@@ -888,7 +990,7 @@
                 GitHub profilim
               </a>
             </div>
-          </motion>
+          </div>
         </div>
       </section>
     </main>
@@ -899,6 +1001,7 @@
       </div>
     </footer>
 
+    <script src="assets/projects-data.js"></script>
     <script>
       const GITHUB_USER = "Yarenunal";
       const SKIP_REPOS = new Set(["blog"]);

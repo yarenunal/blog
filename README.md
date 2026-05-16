@@ -4,17 +4,34 @@
 
 ## Avatar ekleme
 
-Kendi fotoğrafınızı eklemek için:
+1. Kare fotoğraf seçin (en az 400×400 px).
+2. `assets/avatar.jpg` olarak kaydedin.
+3. GitHub’a push edin.
 
-1. Kare veya yakın kare bir fotoğraf seçin (önerilen: en az 400×400 px).
-2. Dosyayı `assets/avatar.jpg` olarak kaydedin (PNG için `index.html` içindeki `src` yolunu güncelleyin).
-3. Değişiklikleri GitHub’a push edin.
+## Proje videoları ekleme
 
-Fotoğraf yoksa sayfa otomatik olarak **YÜ** baş harfli bir avatar gösterir.
+`assets/projects-data.js` dosyasını düzenleyin.
 
-## Öne çıkan projeler
+### YouTube
 
-`index.html` içindeki `featured-projects` bölümündeki kartları düzenleyerek portfolyonuzu özelleştirebilirsiniz. GitHub repoları otomatik olarak “GitHub'dan” bölümünde listelenir.
+```javascript
+video: { type: "youtube", videoId: "abc123XYZ90" }
+// veya tam link:
+video: { type: "youtube", videoId: "https://youtu.be/abc123XYZ90" }
+```
+
+### LinkedIn
+
+Gönderide **⋯ → Gönderiyi yerleştir** → iframe `src` değerini kopyalayın:
+
+```javascript
+video: {
+  type: "linkedin",
+  embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:..."
+}
+```
+
+İsteğe bağlı: `YOUTUBE_CHANNEL` alanına kanal linkinizi yazın (placeholder’da görünür).
 
 ## Yayınlama
 
