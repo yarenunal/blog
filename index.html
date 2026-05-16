@@ -656,6 +656,7 @@
         height: 140px;
         margin: 0 auto 1.5rem;
         flex-shrink: 0;
+        animation: fadeUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
       }
 
       .avatar,
@@ -680,6 +681,7 @@
       }
 
       .avatar-wrap.has-photo {
+        opacity: 1;
         animation: avatarFloat 5s ease-in-out infinite;
       }
 
@@ -695,9 +697,14 @@
           #30d158,
           var(--accent)
         );
-        z-index: -1;
+        z-index: 0;
         opacity: 0.55;
         animation: spin 8s linear infinite;
+      }
+
+      .avatar-wrap.has-photo .avatar,
+      .avatar-wrap.has-photo .avatar-fallback {
+        z-index: 1;
       }
 
       .avatar-fallback {
@@ -1515,11 +1522,11 @@
     <main>
       <header class="hero">
         <div class="container">
-          <div class="avatar-wrap hero-enter" id="avatar-wrap">
+          <div class="avatar-wrap" id="avatar-wrap">
             <img
               class="avatar"
               id="avatar-img"
-              src="assets/avatar.png?v=1"
+              src="assets/avatar.png?v=2"
               alt="Yaren Ünal"
               width="140"
               height="140"
@@ -1747,6 +1754,16 @@
       ];
       let avatarTry = 0;
 
+      function resolveAssetPath(path) {
+        const base = window.location.pathname.includes("/blog")
+          ? window.location.origin +
+            window.location.pathname.split("/blog")[0] +
+            "/blog/"
+          : window.location.origin +
+            window.location.pathname.replace(/\/[^/]*$/, "/");
+        return new URL(path.replace(/^\//, ""), base).href;
+      }
+
       function showAvatar() {
         avatarWrap.classList.add("has-photo");
       }
@@ -1758,7 +1775,8 @@
       avatarImg.addEventListener("error", () => {
         avatarTry += 1;
         if (avatarTry < avatarSources.length) {
-          avatarImg.src = avatarSources[avatarTry];
+          avatarImg.src =
+            resolveAssetPath(avatarSources[avatarTry]) + "?v=2";
         } else {
           avatarImg.style.display = "none";
         }
