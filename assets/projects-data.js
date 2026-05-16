@@ -7,6 +7,26 @@
  */
 const YOUTUBE_CHANNEL = "";
 
+/** GitHub Pages /blog/ altında doğru görsel yolu */
+function getAssetBase() {
+  const script = document.querySelector('script[src*="projects-data.js"]');
+  if (script?.src) {
+    return script.src.replace(/\/[^/]+$/, "/");
+  }
+  const path = window.location.pathname;
+  const blogRoot = path.includes("/blog")
+    ? path.split("/blog")[0] + "/blog/assets/"
+    : path.replace(/\/?[^/]*$/, "/assets/");
+  return window.location.origin + blogRoot;
+}
+
+function resolveAssetUrl(path) {
+  if (!path) return "";
+  if (/^https?:\/\//i.test(path)) return path;
+  const clean = path.replace(/^\//, "");
+  return new URL(clean, getAssetBase()).href;
+}
+
 const PROJECT_SHOWCASE = [
   {
     title: "ArenaX",
@@ -49,15 +69,15 @@ const PROJECT_SHOWCASE = [
       type: "gallery",
       images: [
         {
-          src: "assets/projects/sql-chatbot/ana-ekran.png",
+          src: "projects/sql-chatbot/ana-ekran.png",
           alt: "PostgreSQL Chatbot ana arayüzü ve örnek sorgular",
         },
         {
-          src: "assets/projects/sql-chatbot/sorgu-teklif.png",
+          src: "projects/sql-chatbot/sorgu-teklif.png",
           alt: "En çok teklif alan araç sorusu ve üretilen SQL",
         },
         {
-          src: "assets/projects/sql-chatbot/sorgu-yil.png",
+          src: "projects/sql-chatbot/sorgu-yil.png",
           alt: "Model yılı sorgusu ve SQL sonucu",
         },
       ],
@@ -160,23 +180,25 @@ function buildGalleryHtml(media, projectId) {
 
   const galleryId = "gallery-" + projectId;
   const main = images[0];
+  const mainUrl = resolveAssetUrl(main.src);
 
   const thumbs = images
     .map(function (img, i) {
+      const url = resolveAssetUrl(img.src);
       return (
         '<button type="button" class="showcase-gallery-thumb' +
         (i === 0 ? " is-active" : "") +
         '" data-gallery="' +
         galleryId +
         '" data-src="' +
-        escapeHtml(img.src) +
+        escapeHtml(url) +
         '" data-alt="' +
         escapeHtml(img.alt || "") +
         '" aria-label="' +
         escapeHtml(img.alt || "Görsel " + (i + 1)) +
         '">' +
         '<img src="' +
-        escapeHtml(img.src) +
+        escapeHtml(url) +
         '" alt="" loading="lazy" />' +
         "</button>"
       );
@@ -196,7 +218,7 @@ function buildGalleryHtml(media, projectId) {
     '<img id="' +
     galleryId +
     '-main" src="' +
-    escapeHtml(main.src) +
+    escapeHtml(mainUrl) +
     '" alt="' +
     escapeHtml(main.alt || "") +
     '" loading="eager" />' +
