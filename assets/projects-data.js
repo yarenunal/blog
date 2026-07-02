@@ -30,6 +30,55 @@ function resolveAssetUrl(path) {
 
 const PROJECT_SHOWCASE = [
   {
+    title: "MyWordsApp",
+    description:
+      "CEFR seviyelerine göre kelime öğrenmenizi sağlayan iOS uygulaması. Kelime ilerlemenizi takip eder; favoriler ekleyebilir, özel kelimeler tanımlayabilir ve öğrendiklerinizi yönetebilirsiniz. İnternet olmadan da çalışır — App Store'da yayında.",
+    tags: ["SwiftUI", "Combine", "MVVM", "Codable", "iOS", "App Store"],
+    media: {
+      type: "gallery",
+      images: [
+        {
+          src: "projects/mywordsapp/dil-secimi.png",
+          alt: "Kelime Kartları — İngilizce ve Almanca dil seçimi",
+        },
+        {
+          src: "projects/mywordsapp/ingilizce-seviye.png",
+          alt: "CEFR seviyelerine göre İngilizce kelime listeleri",
+        },
+        {
+          src: "projects/mywordsapp/almanca-seviye.png",
+          alt: "CEFR seviyelerine göre Almanca kelime listeleri",
+        },
+        {
+          src: "projects/mywordsapp/quiz-pekistirme.png",
+          alt: "Kelime quiz ekranı — doğru cevap geri bildirimi",
+        },
+        {
+          src: "projects/mywordsapp/quiz-tekrar.png",
+          alt: "Yanlış cevaplarda tekrar sistemi ile kelime pekiştirme",
+        },
+        {
+          src: "projects/mywordsapp/cevrimdisi.png",
+          alt: "İnternetsiz kelime öğrenme quiz ekranı",
+        },
+        {
+          src: "projects/mywordsapp/bildiklerim.png",
+          alt: "Öğrenilen kelimeleri seviyeye göre listeleme ve tekrar",
+        },
+        {
+          src: "projects/mywordsapp/kelimelerim.png",
+          alt: "Özel kelime ekleme ve kişisel kelime listesi",
+        },
+      ],
+    },
+    links: [
+      {
+        label: "App Store",
+        url: "https://apps.apple.com/tr/app/mywordsapp/id6785971924?l=tr",
+      },
+    ],
+  },
+  {
     title: "ArenaX",
     description:
       "Harita üzerinden yakınınızdaki spor alanlarını ve etkinlikleri keşfetmenizi, kayıt olmanızı ve uygulama içi işlemleri yönetmenizi sağlayan mobil platform. Yakında App Store’da.",
