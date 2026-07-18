@@ -51,7 +51,7 @@ const PROJECT_SHOWCASE = [
     ],
   },
   {
-    title: "ArenaX",
+    title: "Freelancer Job: ArenaX",
     description:
       "Harita üzerinden yakınınızdaki spor alanlarını ve etkinlikleri keşfetmenizi, kayıt olmanızı ve uygulama içi işlemleri yönetmenizi sağlayan mobil platform. Yakında App Store’da.",
     tags: ["SwiftUI", "Firebase", "StoreKit 2", "MapKit", "MVVM"],
