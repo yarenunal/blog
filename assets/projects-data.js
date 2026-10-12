@@ -32,7 +32,7 @@ const PROJECT_SHOWCASE = [
   {
     title: "MyWordsApp",
     description:
-      "CEFR seviyelerine göre kelime öğrenmenizi sağlayan iOS uygulaması. Kelime ilerlemenizi takip eder; haftalık takip sağlar ve kelime ekleyerek kişiselleştirebileceğiniz bir uygulama akışı sağlar.",
+      "CEFR seviyelerine göre kelime öğrenmenizi sağlayan bir iOS uygulaması. Kelime ilerlemenizi ve haftalık çalışmanızı takip eder; kendi kelimelerinizi ekleyerek öğrenme sürecinizi kişiselleştirebilirsiniz. App Store'da yayında.",
     tags: ["SwiftUI", "Combine", "MVVM", "Codable", "iOS", "App Store"],
     media: {
       type: "gallery",
