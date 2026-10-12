@@ -38,9 +38,13 @@ const PROJECT_SHOWCASE = [
       type: "gallery",
       images: [
         {
+          src: "projects/mywordsapp/app-icon.jpg",
+          alt: "MyWordsApp uygulama ikonu",
+        },
+        {
           src: "projects/mywordsapp/dil-secimi.png",
           alt: "Kelime Kartları — İngilizce ve Almanca dil seçimi",
-        }
+        },
       ],
     },
     links: [
