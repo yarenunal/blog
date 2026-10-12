@@ -32,7 +32,7 @@ const PROJECT_SHOWCASE = [
   {
     title: "MyWordsApp",
     description:
-      "CEFR seviyelerine göre kelime öğrenmenizi sağlayan iOS uygulaması. Kelime ilerlemenizi takip eder; favoriler ekleyebilir, özel kelimeler tanımlayabilir ve öğrendiklerinizi yönetebilirsiniz. İnternet olmadan da çalışır — App Store'da yayında.",
+      "CEFR seviyelerine göre kelime öğrenmenizi sağlayan iOS uygulaması. Kelime ilerlemenizi takip eder; haftalık takip sağlar ve kelime ekleyerek kişiselleştirebileceğiniz bir uygulama akışı sağlar.",
     tags: ["SwiftUI", "Combine", "MVVM", "Codable", "iOS", "App Store"],
     media: {
       type: "gallery",
@@ -40,10 +40,6 @@ const PROJECT_SHOWCASE = [
         {
           src: "projects/mywordsapp/app-icon.jpg",
           alt: "MyWordsApp uygulama ikonu",
-        },
-        {
-          src: "projects/mywordsapp/dil-secimi.png",
-          alt: "Kelime Kartları — İngilizce ve Almanca dil seçimi",
         },
       ],
     },
